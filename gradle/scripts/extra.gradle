@@ -11,5 +11,7 @@ tasks.shadowJar {
     archiveClassifier = ''
     configurations = [ project.configurations.shade ]
 
+    relocate 'org.joml', 'com.infinityraider.org.joml'
+
     exclude 'joml.kotlin_module'
 }
