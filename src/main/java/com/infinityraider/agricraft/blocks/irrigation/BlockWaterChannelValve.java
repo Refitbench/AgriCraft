@@ -184,7 +184,7 @@ public class BlockWaterChannelValve extends AbstractBlockWaterChannel<TileEntity
             ingredients.set(4, new OreIngredient("ingotIron"));
 
             ItemStack stack = new ItemStack(AgriBlocks.getInstance().CHANNEL, 1, 0);
-            result.setTagCompound(type.writeToNBT(new NBTTagCompound()));
+            stack.setTagCompound(type.writeToNBT(new NBTTagCompound()));
             ingredients.set(7, Ingredient.fromStacks(stack));
 
             registry.register(new CustomWoodShapedRecipe("valve_" + type.getMeta(), ingredients, result));
