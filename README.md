@@ -7,5 +7,6 @@
 - Fixed recipes not differentiated from each other, and being grouped in JEI/HEI together.
 - Removed Reflections library which incurred a lot of memory usage in instances.
 - AIO. No need to download InfinityLib, and packs AgriCore, AgriPlants all in one repository.
+- Relocated JOML from `org.joml` => `com.infinityraider.org.joml`
 
 Visit the [mod page for more information on mod mechanics](https://www.curseforge.com/minecraft/mc-mods/agricraft)
