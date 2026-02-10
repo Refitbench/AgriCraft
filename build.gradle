@@ -14,6 +14,7 @@ plugins {
     id 'com.matthewprenger.cursegradle' version '1.4.0' apply false
     id 'com.modrinth.minotaur' version '2.+' apply false
     id 'org.jetbrains.changelog' version '2.5.0'
+    id 'com.gradleup.shadow' version '9.2.2'
 }
 
 apply from: 'gradle/scripts/helpers.gradle'
@@ -166,6 +167,9 @@ processResources {
     inputs.property 'mod_id', propertyString('mod_id')
     inputs.property 'mod_name', propertyString('mod_name')
     inputs.property 'mod_version', propertyString('mod_version')
+    inputs.property 'library_id', propertyString('library_id')
+    inputs.property 'library_name', propertyString('library_name')
+    inputs.property 'library_version', propertyString('library_version')
     inputs.property 'mod_description', propertyString('mod_description')
     inputs.property 'mod_authors', "${propertyStringList('mod_authors', ',').join(', ')}"
     inputs.property 'mod_credits', propertyString('mod_credits')
@@ -184,6 +188,9 @@ processResources {
                 'mod_id': propertyString('mod_id'),
                 'mod_name': propertyString('mod_name'),
                 'mod_version': propertyString('mod_version'),
+                'library_id': propertyString('library_id'),
+                'library_name': propertyString('library_name'),
+                'library_version': propertyString('library_version'),
                 'mod_description': propertyString('mod_description'),
                 'mod_authors': "${propertyStringList('mod_authors', ',').join(', ')}",
                 'mod_credits': propertyString('mod_credits'),
