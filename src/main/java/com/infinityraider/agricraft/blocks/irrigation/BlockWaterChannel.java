@@ -1,21 +1,31 @@
 package com.infinityraider.agricraft.blocks.irrigation;
 
+import com.infinityraider.agricraft.crafting.CustomWoodShapedRecipe;
+import com.infinityraider.agricraft.init.AgriBlocks;
 import com.infinityraider.agricraft.reference.Constants;
 import com.infinityraider.agricraft.renderers.blocks.RenderChannel;
 import com.infinityraider.agricraft.tiles.irrigation.TileEntityChannel;
+import com.infinityraider.agricraft.utility.CustomWoodType;
+import com.infinityraider.agricraft.utility.CustomWoodTypeRegistry;
 import com.infinityraider.infinitylib.utility.WorldHelper;
 import java.util.List;
 import java.util.Optional;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.registries.IForgeRegistry;
 
 import javax.annotation.Nullable;
 
@@ -110,6 +120,26 @@ public class BlockWaterChannel extends AbstractBlockWaterChannel<TileEntityChann
         }
 
         return selection;
+    }
+
+    @Override
+    public void registerRecipes(IForgeRegistry<IRecipe> registry) {
+        for (CustomWoodType type : CustomWoodTypeRegistry.getAllTypes()) {
+            NonNullList<Ingredient> ingredients = NonNullList.withSize(9, Ingredient.EMPTY);
+
+            for (int i = 0; i <= 8; i++) {
+                if (i % 2 != 0) {
+                    ItemStack stack = new ItemStack(this, 1, 0);
+                    stack.setTagCompound(type.writeToNBT(new NBTTagCompound()));
+                    ingredients.set(i, Ingredient.fromStacks(stack));
+                }
+            }
+
+            ItemStack result = new ItemStack(AgriBlocks.getInstance().CHANNEL_FULL, 4, 0);
+            result.setTagCompound(type.writeToNBT(new NBTTagCompound()));
+
+            registry.register(new CustomWoodShapedRecipe("normal_to_full_" + type.getMeta(), ingredients, result));
+        }
     }
 
     //render methods

@@ -7,6 +7,7 @@ import com.infinityraider.agricraft.items.blocks.ItemBlockCustomWood;
 import com.infinityraider.agricraft.reference.AgriCraftConfig;
 import com.infinityraider.agricraft.renderers.blocks.RenderTank;
 import com.infinityraider.agricraft.tiles.irrigation.TileEntityTank;
+import com.infinityraider.agricraft.utility.CustomWoodType;
 import com.infinityraider.infinitylib.utility.WorldHelper;
 import java.util.Optional;
 import java.util.function.Consumer;
@@ -16,6 +17,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -111,5 +113,15 @@ public class BlockWaterTank extends BlockCustomWood<TileEntityTank> {
     public boolean isEnabled() {
         return AgriCraftConfig.enableIrrigation;
     }
-    
+
+    @Override
+    protected void getRecipePattern(CustomWoodType type, NonNullList<ItemStack> stacks) {
+        stacks.set(0, type.getStack());
+        stacks.set(2, type.getStack());
+        stacks.set(3, type.getStack());
+        stacks.set(5, type.getStack());
+        stacks.set(6, type.getStack());
+        stacks.set(7, type.getStack());
+        stacks.set(8, type.getStack());
+    }
 }

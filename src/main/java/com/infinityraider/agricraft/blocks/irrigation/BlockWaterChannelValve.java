@@ -1,11 +1,15 @@
 package com.infinityraider.agricraft.blocks.irrigation;
 
 import com.agricraft.agricore.core.AgriCore;
+import com.infinityraider.agricraft.crafting.CustomWoodShapedRecipe;
+import com.infinityraider.agricraft.init.AgriBlocks;
 import com.infinityraider.agricraft.items.blocks.ItemBlockCustomWood;
 import com.infinityraider.agricraft.reference.AgriProperties;
 import com.infinityraider.agricraft.reference.Constants;
 import com.infinityraider.agricraft.renderers.blocks.RenderChannelValve;
 import com.infinityraider.agricraft.tiles.irrigation.TileEntityChannelValve;
+import com.infinityraider.agricraft.utility.CustomWoodType;
+import com.infinityraider.agricraft.utility.CustomWoodTypeRegistry;
 import com.infinityraider.infinitylib.block.blockstate.InfinityProperty;
 import com.infinityraider.infinitylib.utility.WorldHelper;
 import java.util.Arrays;
@@ -17,15 +21,22 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.oredict.OreIngredient;
+import net.minecraftforge.registries.IForgeRegistry;
 
 public class BlockWaterChannelValve extends AbstractBlockWaterChannel<TileEntityChannelValve> {
 
@@ -159,6 +170,25 @@ public class BlockWaterChannelValve extends AbstractBlockWaterChannel<TileEntity
     @Override
     public boolean isSideSolid(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
         return side != EnumFacing.UP;
+    }
+
+    @Override
+    public void registerRecipes(IForgeRegistry<IRecipe> registry) {
+        for (CustomWoodType type : CustomWoodTypeRegistry.getAllTypes()) {
+            NonNullList<Ingredient> ingredients = NonNullList.withSize(9, Ingredient.EMPTY);
+
+            ItemStack result = new ItemStack(this, 1, 0);
+            result.setTagCompound(type.writeToNBT(new NBTTagCompound()));
+
+            ingredients.set(1, Ingredient.fromStacks(new ItemStack(Blocks.LEVER)));
+            ingredients.set(4, new OreIngredient("ingotIron"));
+
+            ItemStack stack = new ItemStack(AgriBlocks.getInstance().CHANNEL, 1, 0);
+            result.setTagCompound(type.writeToNBT(new NBTTagCompound()));
+            ingredients.set(7, Ingredient.fromStacks(stack));
+
+            registry.register(new CustomWoodShapedRecipe("valve_" + type.getMeta(), ingredients, result));
+        }
     }
 
     @Override

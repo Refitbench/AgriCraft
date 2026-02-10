@@ -6,6 +6,7 @@ import com.infinityraider.agricraft.compat.jei.mutation.MutationRecipeCategory;
 import com.infinityraider.agricraft.compat.jei.mutation.MutationRecipeHandler;
 import com.infinityraider.agricraft.compat.jei.produce.ProduceRecipeCategory;
 import com.infinityraider.agricraft.compat.jei.produce.ProduceRecipeHandler;
+import com.infinityraider.agricraft.init.AgriBlocks;
 import com.infinityraider.agricraft.init.AgriItems;
 import java.util.Optional;
 import javax.annotation.Nonnull;
@@ -53,6 +54,11 @@ public class AgriCraftJEIPlugin implements IModPlugin {
             Optional<AgriSeed> seed = AgriApi.getSeedRegistry().valueOf(stack);
             return seed.map(s -> s.getPlant().getId()).orElse("generic");
         });
+        subtypeRegistry.useNbtForSubtypes(AgriBlocks.getInstance().TANK.getItemBlock().get());
+        subtypeRegistry.useNbtForSubtypes(AgriBlocks.getInstance().GRATE.getItemBlock().get());
+        subtypeRegistry.useNbtForSubtypes(AgriBlocks.getInstance().CHANNEL.getItemBlock().get());
+        subtypeRegistry.useNbtForSubtypes(AgriBlocks.getInstance().CHANNEL_FULL.getItemBlock().get());
+        subtypeRegistry.useNbtForSubtypes(AgriBlocks.getInstance().CHANNEL_VALVE.getItemBlock().get());
     }
 
     @Override

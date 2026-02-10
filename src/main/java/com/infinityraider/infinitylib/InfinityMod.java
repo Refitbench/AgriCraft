@@ -1,5 +1,6 @@
 package com.infinityraider.infinitylib;
 
+import com.infinityraider.agricraft.AgriCraft;
 import com.infinityraider.infinitylib.config.IModConfiguration;
 import com.infinityraider.infinitylib.config.InfinityConfigurationHandler;
 import com.infinityraider.infinitylib.network.INetworkWrapper;
@@ -186,6 +187,8 @@ public abstract class InfinityMod {
     
     @SubscribeEvent
     public final void registerRecipes(RegistryEvent.Register<IRecipe> event) {
+        AgriCraft.proxy.initCustomWoodTypes();
+
         InfinityLib.proxy.registerRecipes(this, event.getRegistry());
     }
 

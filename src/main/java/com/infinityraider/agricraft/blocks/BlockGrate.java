@@ -5,6 +5,7 @@ import com.infinityraider.agricraft.reference.AgriCraftConfig;
 import com.infinityraider.agricraft.reference.AgriProperties;
 import com.infinityraider.agricraft.renderers.blocks.RenderBlockGrate;
 import com.infinityraider.agricraft.tiles.decoration.TileEntityGrate;
+import com.infinityraider.agricraft.utility.CustomWoodType;
 import com.infinityraider.infinitylib.block.blockstate.InfinityProperty;
 import com.infinityraider.infinitylib.utility.WorldHelper;
 import java.util.List;
@@ -19,6 +20,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -133,6 +135,15 @@ public class BlockGrate extends BlockCustomWood<TileEntityGrate> {
     @Override
     public BlockRenderLayer getRenderLayer() {
         return BlockRenderLayer.CUTOUT;
+    }
+
+    @Override
+    protected void getRecipePattern(CustomWoodType type, NonNullList<ItemStack> stacks) {
+        for (int i = 0; i <= 8; i++) {
+            if (i % 2 == 0) {
+                stacks.set(i, type.getStack());
+            }
+        }
     }
 
 }

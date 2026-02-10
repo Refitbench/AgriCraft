@@ -31,7 +31,6 @@ public interface IProxy extends IProxyBase {
     default void initStart(FMLInitializationEvent event) {
         NetworkRegistry.INSTANCE.registerGuiHandler(AgriCraft.instance, new GuiHandler());
         PluginHandler.init();
-        initCustomWoodTypes();
     }
 
     @Override

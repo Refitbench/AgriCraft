@@ -1,17 +1,18 @@
 package com.infinityraider.agricraft.blocks;
 
+import com.infinityraider.agricraft.crafting.CustomWoodShapedRecipe;
 import com.infinityraider.agricraft.items.tabs.AgriTabs;
 import com.infinityraider.agricraft.reference.AgriProperties;
 import com.infinityraider.agricraft.reference.Reference;
 import com.infinityraider.agricraft.tiles.TileEntityCustomWood;
+import com.infinityraider.agricraft.utility.CustomWoodType;
 import com.infinityraider.agricraft.utility.CustomWoodTypeRegistry;
 import com.infinityraider.infinitylib.block.BlockTileCustomRenderedBase;
 import com.infinityraider.infinitylib.block.blockstate.InfinityProperty;
+import com.infinityraider.infinitylib.utility.IRecipeRegisterer;
 import com.infinityraider.infinitylib.utility.WorldHelper;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+
+import java.util.*;
 import java.util.function.Consumer;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -21,6 +22,9 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.NonNullList;
@@ -32,8 +36,9 @@ import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.common.property.IUnlistedProperty;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.registries.IForgeRegistry;
 
-public abstract class BlockCustomWood<T extends TileEntityCustomWood> extends BlockTileCustomRenderedBase<T> {
+public abstract class BlockCustomWood<T extends TileEntityCustomWood> extends BlockTileCustomRenderedBase<T> implements IRecipeRegisterer {
 
     public BlockCustomWood(String internalName) {
         super(internalName, Material.WOOD);
@@ -168,6 +173,23 @@ public abstract class BlockCustomWood<T extends TileEntityCustomWood> extends Bl
 
     protected void addUnlistedProperties(Consumer<IUnlistedProperty> consumer) {
         // Nothing to do here.
+    }
+
+    protected void getRecipePattern(CustomWoodType type, NonNullList<ItemStack> stacks) {}
+
+    @Override
+    public void registerRecipes(IForgeRegistry<IRecipe> registry) {
+        for (CustomWoodType type : CustomWoodTypeRegistry.getAllTypes()) {
+            NonNullList<ItemStack> stacks = NonNullList.withSize(9, ItemStack.EMPTY);
+
+            ItemStack result = new ItemStack(this, 1, 0);
+            result.setTagCompound(type.writeToNBT(new NBTTagCompound()));
+
+            this.getRecipePattern(type, stacks);
+            NonNullList<Ingredient> ingredients = stacks.stream().map(Ingredient::fromStacks).collect(NonNullList::create, NonNullList::add, NonNullList::addAll);
+            String typeName = type.getBlock().getRegistryName().toString().replace(':', '_');
+            registry.register(new CustomWoodShapedRecipe(typeName + "_" + type.getMeta() + "_" + this.getInternalName(), ingredients, result));
+        }
     }
 
 }
