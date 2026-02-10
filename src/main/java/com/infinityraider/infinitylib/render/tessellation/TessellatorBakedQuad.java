@@ -89,6 +89,7 @@ public class TessellatorBakedQuad extends TessellatorAbstractBase {
      */
     @Override
     protected void onStartDrawingQuadsCall() {
+        this.applyDiffuseLighting = true;
         this.startDrawing(DRAW_MODE_QUADS);
     }
 
