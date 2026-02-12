@@ -44,6 +44,9 @@ if (propertyBool('publish_to_curseforge')) {
         project {
             id = propertyString('curseforge_project_id')
             addGameVersion 'Java 8'
+            addGameVersion 'Java 21'
+            addGameVersion 'Java 22'
+            addGameVersion 'Java 25'
             addGameVersion 'Forge'
             addGameVersion '1.12.2'
             releaseType = propertyString('release_type')
@@ -52,7 +55,7 @@ if (propertyBool('publish_to_curseforge')) {
                 changelogType = 'markdown'
             }
             mainArtifact tasks.reobfJar, {
-                displayName = "${propertyString('mod_name')} ${propertyString('mod_version')}"
+                // displayName = "${propertyString('mod_name')} ${propertyString('mod_version')}"
                 if (propertyBool('use_mixins')) {
                     relations {
                         requiredDependency 'mixin-booter'
