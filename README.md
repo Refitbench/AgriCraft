@@ -9,4 +9,7 @@
 - AIO. No need to download InfinityLib, and packs AgriCore, AgriPlants all in one repository.
 - Relocated JOML from `org.joml` => `com.infinityraider.org.joml`
 
+### Notes:
+- If VintageFix is installed, turn off `mixin.mod_opts.agricraft` in their configuration.
+
 Visit the [mod page for more information on mod mechanics](https://www.curseforge.com/minecraft/mc-mods/agricraft)
