@@ -22,28 +22,29 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  */
 public class CustomWoodType {
 
-    @Nonnull
-    private final Block block;
-    private final int meta;
+    private final IBlockState state;
     @Nullable
     @SideOnly(Side.CLIENT)
     private TextureAtlasSprite texture;
 
     protected CustomWoodType(@Nonnull Block block, int meta) {
-        this.block = Preconditions.checkNotNull(block);
-        this.meta = meta;
+        this.state = Preconditions.checkNotNull(block).getStateFromMeta(meta);
+    }
+
+    CustomWoodType(IBlockState state) {
+        this.state = state;
     }
 
     public Block getBlock() {
-        return block;
+        return state.getBlock();
     }
 
     public int getMeta() {
-        return meta;
+        return getBlock().getMetaFromState(state);
     }
 
     public IBlockState getState() {
-        return getBlock().getStateFromMeta(getMeta());
+        return state;
     }
 
     public ItemStack getStack() {
@@ -76,7 +77,7 @@ public class CustomWoodType {
 
     @Override
     public String toString() {
-        return this.block.getRegistryName() + ":" + this.meta;
+        return getBlock().getRegistryName() + ":" + getMeta();
     }
 
     @SideOnly(Side.CLIENT)
@@ -84,10 +85,9 @@ public class CustomWoodType {
     public TextureAtlasSprite getIcon() {
         if (texture == null) {
             try {
-                IBlockState state = block.getStateFromMeta(meta);
                 texture = Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getTexture(state);
             } catch (Exception e) {
-                AgriCore.getLogger("agricraft").debug("Unable to load texture for custom wood block {0}!", block.getLocalizedName());
+                AgriCore.getLogger("agricraft").debug("Unable to load texture for custom wood block {0}!", getBlock().getRegistryName() + "@" + getMeta());
                 AgriCore.getLogger("agricraft").trace(e);
                 texture = Minecraft.getMinecraft().getTextureMapBlocks().getMissingSprite();
             }

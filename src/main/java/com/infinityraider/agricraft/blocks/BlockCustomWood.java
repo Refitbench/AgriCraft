@@ -187,8 +187,7 @@ public abstract class BlockCustomWood<T extends TileEntityCustomWood> extends Bl
 
             this.getRecipePattern(type, stacks);
             NonNullList<Ingredient> ingredients = stacks.stream().map(Ingredient::fromStacks).collect(NonNullList::create, NonNullList::add, NonNullList::addAll);
-            String typeName = type.getBlock().getRegistryName().toString().replace(':', '_');
-            registry.register(new CustomWoodShapedRecipe(typeName + "_" + type.getMeta() + "_" + this.getInternalName(), ingredients, result));
+            registry.register(new CustomWoodShapedRecipe(type, this.getInternalName(), ingredients, result));
         }
     }
 

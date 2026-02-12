@@ -187,7 +187,7 @@ public class BlockWaterChannelValve extends AbstractBlockWaterChannel<TileEntity
             stack.setTagCompound(type.writeToNBT(new NBTTagCompound()));
             ingredients.set(7, Ingredient.fromStacks(stack));
 
-            registry.register(new CustomWoodShapedRecipe("valve_" + type.getMeta(), ingredients, result));
+            registry.register(new CustomWoodShapedRecipe(type, "valve", ingredients, result));
         }
     }
 

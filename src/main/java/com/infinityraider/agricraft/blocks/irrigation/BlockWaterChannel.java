@@ -138,7 +138,7 @@ public class BlockWaterChannel extends AbstractBlockWaterChannel<TileEntityChann
             ItemStack result = new ItemStack(AgriBlocks.getInstance().CHANNEL_FULL, 4, 0);
             result.setTagCompound(type.writeToNBT(new NBTTagCompound()));
 
-            registry.register(new CustomWoodShapedRecipe("normal_to_full_" + type.getMeta(), ingredients, result));
+            registry.register(new CustomWoodShapedRecipe(type, "normal_to_full", ingredients, result));
         }
     }
 

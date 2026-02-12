@@ -1,7 +1,6 @@
 package com.infinityraider.agricraft.proxy;
 
 import com.infinityraider.agricraft.handler.ItemToolTipHandler;
-import com.infinityraider.agricraft.utility.CustomWoodTypeRegistry;
 import com.infinityraider.agricraft.utility.ModelErrorSuppressor;
 import com.infinityraider.infinitylib.proxy.base.IClientProxyBase;
 import net.minecraft.client.Minecraft;
@@ -24,11 +23,6 @@ public class ClientProxy implements IClientProxyBase, IProxy {
     public void registerEventHandlers() {
         IProxy.super.registerEventHandlers();
         registerEventHandler(ItemToolTipHandler.getInstance());
-    }
-
-    @Override
-    public void initCustomWoodTypes() {
-        CustomWoodTypeRegistry.initClient();
     }
 
     @Override
