@@ -107,7 +107,7 @@ public class AgriStack {
         return sb.toString();
     }
     
-    public static final AgriStack fromString(String s) {
+    public static AgriStack fromString(String s) {
         final String[] parts = s.split(":");
         switch(parts.length) {
             case 3:

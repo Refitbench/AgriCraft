@@ -135,7 +135,7 @@ public abstract class RenderUtilBase {
      * @param partialTicks partial tick
      * @param inverse inverse or not
      */
-    public static final void correctViewBobbing(EntityPlayer player, float partialTicks, boolean inverse) {
+    public static void correctViewBobbing(EntityPlayer player, float partialTicks, boolean inverse) {
         if (!Minecraft.getMinecraft().gameSettings.viewBobbing) {
             return;
         }
@@ -161,7 +161,7 @@ public abstract class RenderUtilBase {
      * length 1 starting from (0, 0, 0): red line along x axis, green line along y axis and blue
      * line along z axis.
      */
-    public static final void renderCoordinateSystemDebug() {
+    public static void renderCoordinateSystemDebug() {
         if(ModConfiguration.getInstance().debug()) {
             Tessellator tessellator = Tessellator.getInstance();
             BufferBuilder buffer = tessellator.getBuffer();
@@ -197,7 +197,7 @@ public abstract class RenderUtilBase {
      * @param loc ResourceLocation to grab icon from
      * @return the icon
      */
-    public static final TextureAtlasSprite getIcon(ResourceLocation loc) {
+    public static TextureAtlasSprite getIcon(ResourceLocation loc) {
         if (loc == null) {
             return Minecraft.getMinecraft().getTextureMapBlocks().getMissingSprite();
         }

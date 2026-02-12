@@ -16,7 +16,7 @@ public class MessageUtil {
     public static final char COLOR_CODE_ESCAPE = '`';
     public static final char COLOR_CODE_REPLACEMENT = '\u00a7';
 
-    public static final void messagePlayer(@Nullable EntityPlayer player, @Nonnull String format, Object... args) {
+    public static void messagePlayer(@Nullable EntityPlayer player, @Nonnull String format, Object... args) {
         // If the player is null don't do anything.
         if (player == null) {
             return;
@@ -39,7 +39,7 @@ public class MessageUtil {
         player.sendMessage(new TextComponentString(message));
     }
     
-    public static final String colorize(@Nonnull String message) {
+    public static String colorize(@Nonnull String message) {
         return message.replace(COLOR_CODE_ESCAPE, COLOR_CODE_REPLACEMENT);
     }
 

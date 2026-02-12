@@ -21,7 +21,7 @@ public final class ContainerHelper {
      * @param stack
      * @return the remainder of the stack, or the empty stack.
      */
-    public static final ItemStack attemptMergeIntoSlot(@Nonnull Slot slot, @Nonnull ItemStack stack) {
+    public static ItemStack attemptMergeIntoSlot(@Nonnull Slot slot, @Nonnull ItemStack stack) {
         // Validate the input parameters.
         Preconditions.checkNotNull(slot);
         Preconditions.checkNotNull(stack);
@@ -72,7 +72,7 @@ public final class ContainerHelper {
         return stack;
     }
 
-    public static final boolean isSlotValidFor(@Nonnull Slot slot, @Nonnull ItemStack stack) {
+    public static boolean isSlotValidFor(@Nonnull Slot slot, @Nonnull ItemStack stack) {
         // Validate the input parameters.
         Preconditions.checkNotNull(slot);
         Preconditions.checkNotNull(stack);

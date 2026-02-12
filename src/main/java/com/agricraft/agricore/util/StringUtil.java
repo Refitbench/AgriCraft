@@ -23,7 +23,7 @@ public final class StringUtil {
 	 * @param input the string to tokenize.
 	 * @return the tokenized string.
 	 */
-	public static final Deque<String> tokenize(@Nonnull String input) {
+	public static Deque<String> tokenize(@Nonnull String input) {
 		final Matcher m = TOKENIZER.matcher(input);
 		final Deque<String> tokens = new ArrayDeque<>();
 		while (m.find()) {
@@ -32,19 +32,19 @@ public final class StringUtil {
 		return tokens;
 	}
     
-    public static final String increaseIndent(@Nonnull String input) {
+    public static String increaseIndent(@Nonnull String input) {
         return input.replaceAll("(?m)^", "\t");
     }
     
-    public static final String decreaseIndent(@Nonnull String input) {
+    public static String decreaseIndent(@Nonnull String input) {
         return input.replaceAll("(?m)^\t", "");
     }
     
-    public static final String trimStart(@Nonnull String input) {
+    public static String trimStart(@Nonnull String input) {
         return input.replaceAll("^\\s+", "");
     }
     
-    public static final String trimEnd(@Nonnull String input) {
+    public static String trimEnd(@Nonnull String input) {
         return input.replaceAll("\\s+$", "");
     }
 

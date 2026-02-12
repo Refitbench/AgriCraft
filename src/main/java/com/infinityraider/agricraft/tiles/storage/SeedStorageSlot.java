@@ -45,7 +45,7 @@ public class SeedStorageSlot {
         tag.setInteger(AgriNBT.ID, this.slotId);
     }
 
-    public static final Optional<SeedStorageSlot> readFromNbt(NBTTagCompound tag, int invId) {
+    public static Optional<SeedStorageSlot> readFromNbt(NBTTagCompound tag, int invId) {
         Optional<AgriSeed> seed = AgriApi.getSeedRegistry().valueOf(new ItemStack(tag));
         if (seed.isPresent()) {
             int id = tag.getInteger(AgriNBT.ID);

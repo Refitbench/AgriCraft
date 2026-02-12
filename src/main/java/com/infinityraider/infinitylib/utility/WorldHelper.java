@@ -17,7 +17,7 @@ import net.minecraft.world.World;
 
 public class WorldHelper {
 	
-	public static final <T> Optional<T> getBlock(IBlockAccess world, BlockPos pos, Class<T> type) {
+	public static <T> Optional<T> getBlock(IBlockAccess world, BlockPos pos, Class<T> type) {
         return Optional.ofNullable(world)
                 .map(w -> w.getBlockState(pos))
                 .map(s -> s.getBlock())
@@ -25,18 +25,18 @@ public class WorldHelper {
                 .map(b -> type.cast(b));
 	}
 	
-	public static final <T> Optional<T> getTile(IBlockAccess world, BlockPos pos, Class<T> type) {
+	public static <T> Optional<T> getTile(IBlockAccess world, BlockPos pos, Class<T> type) {
         return Optional.ofNullable(world)
                 .map(w -> w.getTileEntity(pos))
                 .filter(te -> type.isAssignableFrom(te.getClass()))
                 .map(te -> type.cast(te));
 	}
 	
-	public static final <T> List<T> getTileNeighbors(World world, BlockPos pos, Class<T> type) {
+	public static <T> List<T> getTileNeighbors(World world, BlockPos pos, Class<T> type) {
 		return getTileNeighbors(world, pos, type, EnumFacing.NORTH, EnumFacing.EAST, EnumFacing.SOUTH, EnumFacing.WEST);
 	}
 
-	public static final <T> List<T> getTileNeighbors(World world, BlockPos pos, Class<T> type, EnumFacing... dirs) {
+	public static <T> List<T> getTileNeighbors(World world, BlockPos pos, Class<T> type, EnumFacing... dirs) {
 		List<T> neighbours = new ArrayList<>();
 		for (EnumFacing dir : dirs) {
             TileEntity te = world.getTileEntity(pos.offset(dir));
@@ -47,19 +47,19 @@ public class WorldHelper {
 		return neighbours;
 	}
     
-    public static final void spawnItemInWorld(World world, BlockPos pos, Collection<ItemStack> stacks) {
+    public static void spawnItemInWorld(World world, BlockPos pos, Collection<ItemStack> stacks) {
         for (ItemStack stack : stacks) {
             spawnItemInWorld(world, pos, stack);
         }
     }
     
-    public static final void spawnItemInWorld(World world, BlockPos pos, ItemStack... stacks) {
+    public static void spawnItemInWorld(World world, BlockPos pos, ItemStack... stacks) {
         for (ItemStack stack : stacks) {
             spawnItemInWorld(world, pos, stack);
         }
     }
     
-    public static final void spawnItemInWorld(World world, BlockPos pos, ItemStack stack) {
+    public static void spawnItemInWorld(World world, BlockPos pos, ItemStack stack) {
         if (world != null && pos != null && stack != null && stack.getItem() != null) {
             Block.spawnAsEntity(world, pos, stack);
         } else {

@@ -64,7 +64,7 @@ public class DefaultTransforms {
         );
     }
 
-    public static final Matrix4f getBlockMatrix(ItemCameraTransforms.TransformType type) {
+    public static Matrix4f getBlockMatrix(ItemCameraTransforms.TransformType type) {
         if (BLOCK.containsKey(type)) {
             return BLOCK.get(type).getMatrix();
         }  else {
@@ -72,7 +72,7 @@ public class DefaultTransforms {
         }
     }
 
-    public static final Matrix4f getItemMatrix(ItemCameraTransforms.TransformType type) {
+    public static Matrix4f getItemMatrix(ItemCameraTransforms.TransformType type) {
         if (ITEM.containsKey(type)) {
             return ITEM.get(type).getMatrix();
         } else {
@@ -80,7 +80,7 @@ public class DefaultTransforms {
         }
     }
 	
-	public static interface Transformer extends Function<ItemCameraTransforms.TransformType, Matrix4f> {
+	public interface Transformer extends Function<ItemCameraTransforms.TransformType, Matrix4f> {
 		
 	}
 	
