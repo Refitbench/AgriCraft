@@ -121,7 +121,7 @@ public class RenderSprinkler extends RenderBlockWithTileBase<BlockSprinkler, Til
 
     @Override
     public boolean applyAmbientOcclusion() {
-        return false;
+        return true;
     }
 
 }

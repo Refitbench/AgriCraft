@@ -81,6 +81,6 @@ public class RenderBlockGrate extends RenderBlockCustomWood<BlockGrate, TileEnti
 
     @Override
     public boolean applyAmbientOcclusion() {
-        return false;
+        return true;
     }
 }
