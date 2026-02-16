@@ -9,15 +9,19 @@ import com.infinityraider.agricraft.renderers.blocks.RenderTank;
 import com.infinityraider.agricraft.tiles.irrigation.TileEntityTank;
 import com.infinityraider.agricraft.utility.CustomWoodType;
 import com.infinityraider.infinitylib.utility.WorldHelper;
+
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -28,7 +32,14 @@ import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nullable;
+
 public class BlockWaterTank extends BlockCustomWood<TileEntityTank> {
+
+    protected static final AxisAlignedBB AABB_WALL_NORTH = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 0.125D);
+    protected static final AxisAlignedBB AABB_WALL_SOUTH = new AxisAlignedBB(0.0D, 0.0D, 0.875D, 1.0D, 1.0D, 1.0D);
+    protected static final AxisAlignedBB AABB_WALL_EAST = new AxisAlignedBB(0.875D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D);
+    protected static final AxisAlignedBB AABB_WALL_WEST = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 0.125D, 1.0D, 1.0D);
 
     private final ItemBlockCustomWood itemBlock;
 
@@ -124,4 +135,21 @@ public class BlockWaterTank extends BlockCustomWood<TileEntityTank> {
         stacks.set(7, type.getStack());
         stacks.set(8, type.getStack());
     }
+
+    @Override
+    public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, @Nullable Entity entityIn, boolean isActualState) {
+        if (worldIn.getBlockState(pos.offset(EnumFacing.WEST)) != state) {
+            addCollisionBoxToList(pos, entityBox, collidingBoxes, AABB_WALL_WEST);
+        }
+        if (worldIn.getBlockState(pos.offset(EnumFacing.NORTH)) != state) {
+            addCollisionBoxToList(pos, entityBox, collidingBoxes, AABB_WALL_NORTH);
+        }
+        if (worldIn.getBlockState(pos.offset(EnumFacing.EAST)) != state) {
+            addCollisionBoxToList(pos, entityBox, collidingBoxes, AABB_WALL_EAST);
+        }
+        if (worldIn.getBlockState(pos.offset(EnumFacing.SOUTH)) != state) {
+            addCollisionBoxToList(pos, entityBox, collidingBoxes, AABB_WALL_SOUTH);
+        }
+    }
+
 }
