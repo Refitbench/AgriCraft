@@ -9,6 +9,7 @@
 - Fixed recipes not differentiated from each other, and being grouped in JEI/HEI together.
 - Removed Reflections library which incurred a lot of memory usage in instances.
 - Fixed Biomes O' Plenty Farmland/Soil Compatibility
+- Proper collision for water tanks
 
 #### Technical Changes
 - AIO. No need to download InfinityLib, and packs AgriCore, AgriPlants all in one repository.

@@ -54,7 +54,7 @@ if (propertyBool('publish_to_curseforge')) {
                 changelog = parserChangelog()
                 changelogType = 'markdown'
             }
-            mainArtifact tasks.reobfJar, {
+            mainArtifact tasks.reobfJar.getArchiveFile(), {
                 // displayName = "${propertyString('mod_name')} ${propertyString('mod_version')}"
                 if (propertyBool('use_mixins')) {
                     relations {

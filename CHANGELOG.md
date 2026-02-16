@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.16.0] - 2026-02-16
+
+### Fixed
+- Ambient Occlusion on some selected blocks
+
+### Added
+- Proper collision for water tanks
+
 ## [2.15.0] - 2026-02-12
 
 ### Fixed
