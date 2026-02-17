@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.17.0] - 2026-02-17
+
+### Changed
+- Optimized suppression of model errors
+
+### Fixed
+- Collision not added on the bottom side of tanks, now it is only ignored when there is another tank below it
+
+### Added
+- WAILA/HWYLA support for crop sticks
+- TerraFirmaCraft and TFC Rocks+ native soil support
+
 ## [2.16.0] - 2026-02-16
 
 ### Fixed

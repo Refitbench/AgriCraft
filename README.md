@@ -10,11 +10,14 @@
 - Removed Reflections library which incurred a lot of memory usage in instances.
 - Fixed Biomes O' Plenty Farmland/Soil Compatibility
 - Proper collision for water tanks
+- WAILA/HWYLA support for crop sticks
+- TerraFirmaCraft and TFC Rocks+ native soil support
 
 #### Technical Changes
 - AIO. No need to download InfinityLib, and packs AgriCore, AgriPlants all in one repository.
 - Relocated JOML from `org.joml` => `com.infinityraider.org.joml`
 - Code Cleanups
+- Optimizations when suppressing model errors
 
 ### Notes:
 - Generally advise to refresh configurations when switching from the old AgriCraft to this **refitted version**!
