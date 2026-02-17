@@ -1,0 +1,128 @@
+{
+  "path": "mod_tfc_rocksplus/soils/tfc_rocksplus_soils.json",
+  "enabled": true,
+  "id": "tfc_rocksplus_farmland",
+  "name": "TFC Rocks+ Farmland",
+  "varients": [
+    {
+      "item": "tfc:farmland/wackestone",
+      "meta": 0,
+      "tags": "",
+      "ignoreMeta": true,
+      "ignoreTags": [
+        "*"
+      ],
+      "useOreDict": true
+    },
+    {
+      "item": "tfc:farmland/cataclasite",
+      "meta": 0,
+      "tags": "",
+      "ignoreMeta": true,
+      "ignoreTags": [
+        "*"
+      ],
+      "useOreDict": true
+    },
+    {
+      "item": "tfc:farmland/boninite",
+      "meta": 0,
+      "tags": "",
+      "ignoreMeta": true,
+      "ignoreTags": [
+        "*"
+      ],
+      "useOreDict": true
+    },
+    {
+      "item": "tfc:farmland/blaimorite",
+      "meta": 0,
+      "tags": "",
+      "ignoreMeta": true,
+      "ignoreTags": [
+        "*"
+      ],
+      "useOreDict": true
+    },
+    {
+      "item": "tfc:farmland/greenschist",
+      "meta": 0,
+      "tags": "",
+      "ignoreMeta": true,
+      "ignoreTags": [
+        "*"
+      ],
+      "useOreDict": true
+    },
+    {
+      "item": "tfc:farmland/jaspillite",
+      "meta": 0,
+      "tags": "",
+      "ignoreMeta": true,
+      "ignoreTags": [
+        "*"
+      ],
+      "useOreDict": true
+    },
+    {
+      "item": "tfc:farmland/foidolite",
+      "meta": 0,
+      "tags": "",
+      "ignoreMeta": true,
+      "ignoreTags": [
+        "*"
+      ],
+      "useOreDict": true
+    },
+    {
+      "item": "tfc:farmland/travertine",
+      "meta": 0,
+      "tags": "",
+      "ignoreMeta": true,
+      "ignoreTags": [
+        "*"
+      ],
+      "useOreDict": true
+    },
+    {
+      "item": "tfc:farmland/carbonatite",
+      "meta": 0,
+      "tags": "",
+      "ignoreMeta": true,
+      "ignoreTags": [
+        "*"
+      ],
+      "useOreDict": true
+    },
+    {
+      "item": "tfc:farmland/mylonite",
+      "meta": 0,
+      "tags": "",
+      "ignoreMeta": true,
+      "ignoreTags": [
+        "*"
+      ],
+      "useOreDict": true
+    },
+    {
+      "item": "tfc:farmland/blueschist",
+      "meta": 0,
+      "tags": "",
+      "ignoreMeta": true,
+      "ignoreTags": [
+        "*"
+      ],
+      "useOreDict": true
+    },
+    {
+      "item": "tfc:farmland/arkose",
+      "meta": 0,
+      "tags": "",
+      "ignoreMeta": true,
+      "ignoreTags": [
+        "*"
+      ],
+      "useOreDict": true
+    }
+  ]
+}
