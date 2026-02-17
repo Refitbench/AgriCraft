@@ -4,7 +4,7 @@ package com.infinityraider.agricraft.core;
 
 import com.agricraft.agricore.config.AgriConfigAdapter;
 import com.agricraft.agricore.core.AgriCore;
-import com.infinityraider.agricraft.reference.Reference;
+import infinityraider.infinitylib.Tags;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -63,10 +63,10 @@ public class ModProvider implements AgriConfigAdapter {
 
     @SubscribeEvent
     public void onConfigurationChangedEvent(ConfigChangedEvent.OnConfigChangedEvent event) {
-        if (event.getModID().equals(Reference.MOD_ID)) {
+        if (event.getModID().equals(Tags.MOD_ID)) {
             AgriCore.getConfig().save();
             AgriCore.getConfig().load();
-            AgriCore.getLogger("agricraft").debug("Configuration reloaded.");
+            AgriCore.getLogger(Tags.MOD_ID).debug("Configuration reloaded.");
         }
     }
 

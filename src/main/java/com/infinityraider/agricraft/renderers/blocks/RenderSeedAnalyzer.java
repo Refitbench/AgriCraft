@@ -2,7 +2,6 @@ package com.infinityraider.agricraft.renderers.blocks;
 
 import com.infinityraider.agricraft.blocks.BlockSeedAnalyzer;
 import com.infinityraider.agricraft.reference.AgriProperties;
-import com.infinityraider.agricraft.reference.Reference;
 import com.infinityraider.agricraft.renderers.models.ModelSeedAnalyzer;
 import com.infinityraider.agricraft.renderers.models.ModelSeedAnalyzerBook;
 import com.infinityraider.agricraft.tiles.analyzer.TileEntitySeedAnalyzer;
@@ -12,6 +11,8 @@ import com.infinityraider.infinitylib.render.model.ModelTechne;
 import com.infinityraider.infinitylib.render.tessellation.ITessellator;
 import java.util.ArrayList;
 import java.util.List;
+
+import infinityraider.infinitylib.Tags;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.block.model.BakedQuad;
@@ -30,7 +31,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class RenderSeedAnalyzer extends RenderBlockWithTileBase<BlockSeedAnalyzer, TileEntitySeedAnalyzer> {
 
-    public static ResourceLocation TEXTURE_ANALYZER = new ResourceLocation(Reference.MOD_ID.toLowerCase() + ":blocks/seed_analyzer");
+    public static ResourceLocation TEXTURE_ANALYZER = new ResourceLocation(Tags.MOD_ID + ":blocks/seed_analyzer");
 
     private static final ModelTechne<ModelSeedAnalyzer> MODEL_ANALYZER = new ModelTechne<>(new ModelSeedAnalyzer()).setDiffuseLighting(false);
     private static final ModelTechne<ModelSeedAnalyzerBook> MODEL_BOOK = new ModelTechne<>(new ModelSeedAnalyzerBook()).setDiffuseLighting(false);

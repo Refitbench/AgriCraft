@@ -17,6 +17,8 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import javax.annotation.Nonnull;
 import javax.naming.OperationNotSupportedException;
+
+import infinityraider.infinitylib.Tags;
 import net.minecraftforge.fml.common.FMLLog;
 import org.apache.logging.log4j.Level;
 
@@ -27,9 +29,9 @@ import org.apache.logging.log4j.Level;
  */
 public final class AgriApi {
 
-    public static final String MOD_ID = "agricraft";
+    public static final String MOD_ID = Tags.MOD_ID;
 
-    public static final String API_ID = "agricraft-api-v1";
+    public static final String API_ID = Tags.MOD_ID + "-api-v1";
 
     private static final IAgriApiConnector CONNECTOR = connect();
 

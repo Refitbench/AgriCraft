@@ -13,6 +13,8 @@ import java.util.Random;
 import java.util.stream.Collectors;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
+import infinityraider.infinitylib.Tags;
 import net.minecraft.util.Tuple;
 
 /**
@@ -44,10 +46,10 @@ public final class AgriMutationEngine implements IAgriMutationEngine {
                     + "The roll chance must be in the range 0.0 (inclusive) to 1.0 (exclusive)!"
             );
         } else if (strategy.getRollChance() == 0) {
-            AgriCore.getLogger("agricraft").debug("Skipping mutation strategy with zero chance!");
+            AgriCore.getLogger(Tags.MOD_ID).debug("Skipping mutation strategy with zero chance!");
             return false;
         } else if (hasStrategy(strategy)) {
-            AgriCore.getLogger("agricraft").debug("Skipping duplicate mutation strategy!");
+            AgriCore.getLogger(Tags.MOD_ID).debug("Skipping duplicate mutation strategy!");
             return false;
         } else {
             this.sigma += strategy.getRollChance();

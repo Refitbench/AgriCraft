@@ -16,6 +16,8 @@ import com.infinityraider.infinitylib.utility.MessageUtil;
 import com.infinityraider.infinitylib.utility.WorldHelper;
 import java.util.List;
 import java.util.Optional;
+
+import infinityraider.infinitylib.Tags;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -62,7 +64,7 @@ public class ItemClipping extends ItemBase implements IAutoRenderedItem {
 
         // If seed is missing, error and pass.
         if (seed == null) {
-            AgriCore.getLogger("agricraft").info("Unable to resolve an ItemClipping to an instance of an AgriSeed!");
+            AgriCore.getLogger(Tags.MOD_ID).info("Unable to resolve an ItemClipping to an instance of an AgriSeed!");
             return EnumActionResult.PASS;
         }
 

@@ -30,6 +30,8 @@ import java.util.Optional;
 import java.util.Random;
 import java.util.function.Consumer;
 import java.util.function.Function;
+
+import infinityraider.infinitylib.Tags;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.item.ItemStack;
@@ -220,7 +222,7 @@ public class JsonPlant implements IAgriPlant {
         return Collections.emptyList();
     }
 
-    public static final List<FuzzyStack> initSeedItemsListJSON(AgriPlant plant) {
+    public static List<FuzzyStack> initSeedItemsListJSON(AgriPlant plant) {
         final List<FuzzyStack> seeds = new ArrayList<>(plant.getSeedItems().size());
         plant.getSeedItems().stream()
                 .map(i -> i.toStack(FuzzyStack.class))
@@ -233,7 +235,7 @@ public class JsonPlant implements IAgriPlant {
         return seeds;
     }
 
-    public static final IGrowthRequirement initGrowthRequirementJSON(AgriPlant plant) {
+    public static IGrowthRequirement initGrowthRequirementJSON(AgriPlant plant) {
 
         IGrowthReqBuilder builder = new GrowthReqBuilder();
 
@@ -242,7 +244,7 @@ public class JsonPlant implements IAgriPlant {
         }
 
         if (plant.getRequirement().getSoils().isEmpty()) {
-            AgriCore.getLogger("agricraft").warn("Plant: \"{0}\" has no valid soils to plant on!", plant.getPlantName());
+            AgriCore.getLogger(Tags.MOD_ID).warn("Plant: \"{0}\" has no valid soils to plant on!", plant.getPlantName());
         }
 
         plant.getRequirement().getSoils().stream()
@@ -251,17 +253,15 @@ public class JsonPlant implements IAgriPlant {
 
         plant.getRequirement().getConditions().forEach(obj -> {
             final Optional<FuzzyStack> stack = obj.toStack(FuzzyStack.class);
-            if (stack.isPresent()) {
-                builder.addCondition(
-                        new BlockCondition(
-                                stack.get(),
-                                new BlockRange(
-                                        obj.getMinX(), obj.getMinY(), obj.getMinZ(),
-                                        obj.getMaxX(), obj.getMaxY(), obj.getMaxZ()
-                                )
-                        )
-                );
-            }
+            stack.ifPresent(fuzzyStack -> builder.addCondition(
+                    new BlockCondition(
+                            fuzzyStack,
+                            new BlockRange(
+                                    obj.getMinX(), obj.getMinY(), obj.getMinZ(),
+                                    obj.getMaxX(), obj.getMaxY(), obj.getMaxZ()
+                            )
+                    )
+            ));
         });
 
         builder.setMinLight(plant.getRequirement().getMinLight());

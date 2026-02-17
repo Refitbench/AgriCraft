@@ -6,7 +6,6 @@ import com.infinityraider.agricraft.items.tabs.AgriTabs;
 import com.infinityraider.agricraft.reference.AgriCraftConfig;
 import com.infinityraider.agricraft.reference.AgriProperties;
 import com.infinityraider.agricraft.reference.Constants;
-import com.infinityraider.agricraft.reference.Reference;
 import com.infinityraider.agricraft.renderers.blocks.RenderSprinkler;
 import com.infinityraider.agricraft.tiles.TileEntityCustomWood;
 import com.infinityraider.agricraft.tiles.irrigation.TileEntityChannel;
@@ -19,6 +18,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import javax.annotation.Nullable;
+
+import infinityraider.infinitylib.Tags;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -129,7 +130,7 @@ public class BlockSprinkler extends BlockTileCustomRenderedBase<TileEntitySprink
     @Override
     @SideOnly(Side.CLIENT)
     public ModelResourceLocation getBlockModelResourceLocation() {
-        return new ModelResourceLocation(Reference.MOD_ID.toLowerCase() + ":" + getInternalName());
+        return new ModelResourceLocation(Tags.MOD_ID + ":" + getInternalName());
     }
 
     @Override

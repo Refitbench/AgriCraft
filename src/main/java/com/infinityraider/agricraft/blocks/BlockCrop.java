@@ -14,7 +14,6 @@ import com.infinityraider.agricraft.items.ItemDebugger;
 import com.infinityraider.agricraft.reference.AgriCraftConfig;
 import com.infinityraider.agricraft.reference.AgriProperties;
 import com.infinityraider.agricraft.reference.Constants;
-import com.infinityraider.agricraft.reference.Reference;
 import com.infinityraider.agricraft.renderers.blocks.RenderCrop;
 import com.infinityraider.agricraft.tiles.TileEntityCrop;
 import com.infinityraider.agricraft.utility.StackHelper;
@@ -24,6 +23,8 @@ import com.infinityraider.infinitylib.utility.WorldHelper;
 import java.util.*;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
+import infinityraider.infinitylib.Tags;
 import net.minecraft.block.Block;
 import net.minecraft.block.IGrowable;
 import net.minecraft.block.SoundType;
@@ -514,7 +515,7 @@ public class BlockCrop extends BlockTileCustomRenderedBase<TileEntityCrop> imple
     @Override
     @SideOnly(Side.CLIENT)
     public ModelResourceLocation getBlockModelResourceLocation() {
-        return new ModelResourceLocation(Reference.MOD_ID.toLowerCase() + ":" + getInternalName());
+        return new ModelResourceLocation(Tags.MOD_ID + ":" + getInternalName());
     }
 
     @Override

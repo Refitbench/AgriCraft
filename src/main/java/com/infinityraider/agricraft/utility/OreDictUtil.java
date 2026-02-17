@@ -6,6 +6,8 @@ import com.google.common.base.Strings;
 import java.util.Optional;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
+import infinityraider.infinitylib.Tags;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.JsonToNBT;
@@ -40,7 +42,7 @@ public final class OreDictUtil {
         } else if (parts.length == 2) {
             return isValidOre(parts[0], parts[1]);
         } else if (parts.length > 2) {
-            AgriCore.getLogger("agricraft").warn("Invalid stack identifier detected!\n\tGiven: \"{0}\"\n\tAssuming: \"{1}:{2}\"", element, parts[0], parts[1]);
+            AgriCore.getLogger(Tags.MOD_ID).warn("Invalid stack identifier detected!\n\tGiven: \"{0}\"\n\tAssuming: \"{1}:{2}\"", element, parts[0], parts[1]);
             return isValidOre(parts[0], parts[1]);
         } else {
             throw new AssertionError("String.split() method worked incorrectly. This should be an impossible error.");
@@ -66,7 +68,7 @@ public final class OreDictUtil {
 
         // Check that the oredictionary contains the given object.
         if (!OreDictionary.doesOreNameExist(suffix)) {
-            AgriCore.getLogger("agricraft").error("Unable to resolve Ore Dictionary Entry: \"{0}:{1}\".", prefix, suffix);
+            AgriCore.getLogger(Tags.MOD_ID).error("Unable to resolve Ore Dictionary Entry: \"{0}:{1}\".", prefix, suffix);
             return false;
         } else {
             return true;
@@ -120,7 +122,7 @@ public final class OreDictUtil {
         } else if (parts.length == 2) {
             return makeItemStack(parts[0], parts[1], meta, amount, tags);
         } else if (parts.length > 2) {
-            AgriCore.getLogger("agricraft").warn("Invalid stack identifier detected!\n\tGiven: \"{0}\"\n\tAssuming: \"{1}:{2}\"", element, parts[0], parts[1]);
+            AgriCore.getLogger(Tags.MOD_ID).warn("Invalid stack identifier detected!\n\tGiven: \"{0}\"\n\tAssuming: \"{1}:{2}\"", element, parts[0], parts[1]);
             return makeItemStack(parts[0], parts[1], meta, amount, tags);
         } else {
             throw new AssertionError("String.split() method worked incorrectly. This should be an impossible error.");
@@ -167,7 +169,7 @@ public final class OreDictUtil {
 
         // Step 1. Check that item is not null.
         if (item == null) {
-            AgriCore.getLogger("agricraft").error("Unable to resolve item: {0}:{1}.", prefix, suffix);
+            AgriCore.getLogger(Tags.MOD_ID).error("Unable to resolve item: {0}:{1}.", prefix, suffix);
             return Optional.empty();
         }
 
@@ -210,7 +212,7 @@ public final class OreDictUtil {
             stack.setTagCompound(tag);
             return Optional.of(stack);
         } catch (NBTException e) {
-            AgriCore.getLogger("agricraft").error("Unable to parse NBT Data: \"{0}\".\nCause: {1}", tags, e);
+            AgriCore.getLogger(Tags.MOD_ID).error("Unable to parse NBT Data: \"{0}\".\nCause: {1}", tags, e);
             return Optional.empty();
         }
     }

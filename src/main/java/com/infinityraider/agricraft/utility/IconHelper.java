@@ -12,6 +12,8 @@ import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
+import infinityraider.infinitylib.Tags;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -142,7 +144,7 @@ public final class IconHelper {
         try {
             ret = Minecraft.getMinecraft().getTextureMapBlocks().registerSprite(texturePath);
         } catch (Exception e) {
-            AgriCore.getLogger("agricraft").debug(e.getLocalizedMessage());
+            AgriCore.getLogger(Tags.MOD_ID).debug(e.getLocalizedMessage());
         }
         
         // Return the icon, or the default icon in the case that the icon was null.
@@ -183,9 +185,9 @@ public final class IconHelper {
             }
         } catch (NoSuchFieldException | IllegalAccessException e) {
             // Shoot
-            AgriCore.getLogger("agricraft").debug("Something strange is going on with the Minecraft TextureMap!");
+            AgriCore.getLogger(Tags.MOD_ID).debug("Something strange is going on with the Minecraft TextureMap!");
         } catch (SecurityException e) {
-            AgriCore.getLogger("agricraft").debug("Locked out of TextureMap...");
+            AgriCore.getLogger(Tags.MOD_ID).debug("Locked out of TextureMap...");
         }
         return matches;
     }

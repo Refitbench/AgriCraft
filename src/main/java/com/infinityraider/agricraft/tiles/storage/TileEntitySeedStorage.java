@@ -6,7 +6,6 @@ import com.infinityraider.agricraft.api.v1.AgriApi;
 import com.infinityraider.agricraft.api.v1.seed.AgriSeed;
 import com.infinityraider.agricraft.network.MessageTileEntitySeedStorage;
 import com.infinityraider.agricraft.reference.AgriNBT;
-import com.infinityraider.agricraft.reference.Reference;
 import com.infinityraider.agricraft.tiles.TileEntityCustomWood;
 import com.infinityraider.agricraft.utility.NBTHelper;
 import com.infinityraider.infinitylib.utility.debug.IDebuggable;
@@ -20,6 +19,8 @@ import javax.annotation.Nullable;
 
 import com.infinityraider.infinitylib.utility.inventory.IInventoryItemHandler;
 import javax.annotation.Nonnull;
+
+import infinityraider.infinitylib.Tags;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
@@ -437,7 +438,7 @@ public class TileEntitySeedStorage extends TileEntityCustomWood implements ISeed
      */
     @Override
     public String getName() {
-        return Reference.MOD_ID + ":seed_storage";
+        return Tags.MOD_ID + ":seed_storage";
     }
 
     @Override

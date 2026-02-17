@@ -8,6 +8,8 @@ import com.infinityraider.agricraft.tiles.TileEntityCustomWood;
 import com.infinityraider.infinitylib.utility.debug.IDebuggable;
 import java.util.function.Consumer;
 import javax.annotation.Nonnull;
+
+import infinityraider.infinitylib.Tags;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
@@ -109,10 +111,10 @@ public class TileEntityChannel extends TileEntityCustomWood implements ITickable
 
         // Bring the fluid amount into the proper range (in case of old, bad saves).
         if (newFluidAmount < 0) {
-            AgriCore.getLogger("agricraft").warn("Save file has negative fluid amount ({0} mB) for fluid component! Replacing with 0 mB instead!", newFluidAmount);
+            AgriCore.getLogger(Tags.MOD_ID).warn("Save file has negative fluid amount ({0} mB) for fluid component! Replacing with 0 mB instead!", newFluidAmount);
             newFluidAmount = 0;
         } else if (newFluidAmount > this.fluidCapacity) {
-            AgriCore.getLogger("agricraft").warn("Save file has fluid amount ({0} mB) that exceeds the capacity of a fluid component ({1} mB)! Replacing maximum allowed fluid amount ({1} mB) instead!", newFluidAmount, this.fluidCapacity);
+            AgriCore.getLogger(Tags.MOD_ID).warn("Save file has fluid amount ({0} mB) that exceeds the capacity of a fluid component ({1} mB)! Replacing maximum allowed fluid amount ({1} mB) instead!", newFluidAmount, this.fluidCapacity);
             newFluidAmount = this.fluidCapacity;
         }
 
@@ -168,10 +170,10 @@ public class TileEntityChannel extends TileEntityCustomWood implements ITickable
     public void setFluidAmount(int newFluidAmount) {
         // Ensure amount is in the proper range.
         if (newFluidAmount < 0) {
-            AgriCore.getLogger("agricraft").warn("Attempted to set fluid amount of a component to a negative number ({0}mB)!", newFluidAmount);
+            AgriCore.getLogger(Tags.MOD_ID).warn("Attempted to set fluid amount of a component to a negative number ({0}mB)!", newFluidAmount);
             newFluidAmount = 0;
         } else if (newFluidAmount > this.fluidCapacity) {
-            AgriCore.getLogger("agricraft").warn("Attempted to set fluid amount of a component with capacity {0}mB to {1}mB!", this.fluidCapacity, newFluidAmount);
+            AgriCore.getLogger(Tags.MOD_ID).warn("Attempted to set fluid amount of a component with capacity {0}mB to {1}mB!", this.fluidCapacity, newFluidAmount);
             newFluidAmount = this.fluidCapacity;
         }
 

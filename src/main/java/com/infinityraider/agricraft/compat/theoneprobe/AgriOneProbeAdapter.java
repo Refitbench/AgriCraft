@@ -6,6 +6,8 @@ import com.infinityraider.agricraft.api.v1.misc.IAgriDisplayable;
 import com.infinityraider.infinitylib.utility.WorldHelper;
 import java.util.ArrayList;
 import java.util.List;
+
+import infinityraider.infinitylib.Tags;
 import mcjty.theoneprobe.api.IProbeHitData;
 import mcjty.theoneprobe.api.IProbeInfo;
 import mcjty.theoneprobe.api.IProbeInfoProvider;
@@ -22,7 +24,7 @@ public class AgriOneProbeAdapter implements IProbeInfoProvider {
 
     @Override
     public String getID() {
-        return "agricraft";
+        return Tags.MOD_ID;
     }
 
     @Override
@@ -30,7 +32,7 @@ public class AgriOneProbeAdapter implements IProbeInfoProvider {
         final List<String> lines = new ArrayList<>();
         WorldHelper.getBlock(world, data.getPos(), IAgriDisplayable.class).ifPresent(e -> e.addDisplayInfo(lines::add));
         WorldHelper.getTile(world, data.getPos(), IAgriDisplayable.class).ifPresent(e -> e.addDisplayInfo(lines::add));
-        lines.stream().forEach(probeInfo::text);
+        lines.forEach(probeInfo::text);
     }
 
 }

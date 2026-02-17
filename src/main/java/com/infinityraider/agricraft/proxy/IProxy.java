@@ -11,6 +11,7 @@ import com.infinityraider.agricraft.utility.CustomWoodTypeRegistry;
 import com.infinityraider.agricraft.world.WorldGen;
 import com.infinityraider.infinitylib.proxy.base.IProxyBase;
 import com.infinityraider.infinitylib.utility.ReflectionHelper;
+import infinityraider.infinitylib.Tags;
 import net.minecraft.command.ICommand;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -80,10 +81,10 @@ public interface IProxy extends IProxyBase {
     default void onServerStarting(FMLServerStartingEvent event) {
         // This is to be moved to infinity lib in a future version, I would expect.
         if(AgriCommands.enableCommands) {
-            AgriCore.getLogger("agricraft").info("Registering AgriCraft Commands.");
+            AgriCore.getLogger(Tags.MOD_ID).info("Registering AgriCraft Commands.");
             ReflectionHelper.forEachValueIn(AgriCraft.instance.getModCommandRegistry(), ICommand.class, event::registerServerCommand);
         } else {
-            AgriCore.getLogger("agricraft").info("AgriCraft Commands disabled, skipping registration.");
+            AgriCore.getLogger(Tags.MOD_ID).info("AgriCraft Commands disabled, skipping registration.");
         }
     }
     

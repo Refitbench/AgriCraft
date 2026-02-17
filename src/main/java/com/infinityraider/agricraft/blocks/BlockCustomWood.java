@@ -3,7 +3,6 @@ package com.infinityraider.agricraft.blocks;
 import com.infinityraider.agricraft.crafting.CustomWoodShapedRecipe;
 import com.infinityraider.agricraft.items.tabs.AgriTabs;
 import com.infinityraider.agricraft.reference.AgriProperties;
-import com.infinityraider.agricraft.reference.Reference;
 import com.infinityraider.agricraft.tiles.TileEntityCustomWood;
 import com.infinityraider.agricraft.utility.CustomWoodType;
 import com.infinityraider.agricraft.utility.CustomWoodTypeRegistry;
@@ -14,6 +13,8 @@ import com.infinityraider.infinitylib.utility.WorldHelper;
 
 import java.util.*;
 import java.util.function.Consumer;
+
+import infinityraider.infinitylib.Tags;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -139,7 +140,7 @@ public abstract class BlockCustomWood<T extends TileEntityCustomWood> extends Bl
     @Override
     @SideOnly(Side.CLIENT)
     public ModelResourceLocation getBlockModelResourceLocation() {
-        return new ModelResourceLocation(Reference.MOD_ID.toLowerCase() + ":" + getInternalName());
+        return new ModelResourceLocation(Tags.MOD_ID + ":" + getInternalName());
     }
 
     @Override

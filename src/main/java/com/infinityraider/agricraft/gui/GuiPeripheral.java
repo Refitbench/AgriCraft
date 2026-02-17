@@ -4,11 +4,12 @@ import com.agricraft.agricore.core.AgriCore;
 import com.infinityraider.agricraft.api.v1.AgriApi;
 import com.infinityraider.agricraft.tiles.TileEntityPeripheral;
 import com.infinityraider.agricraft.container.ContainerSeedAnalyzer;
-import com.infinityraider.agricraft.reference.Reference;
 import com.infinityraider.agricraft.utility.GuiHelper;
 import com.infinityraider.infinitylib.render.tessellation.ITessellator;
 import com.infinityraider.infinitylib.render.tessellation.TessellatorVertexBuffer;
 import java.util.List;
+
+import infinityraider.infinitylib.Tags;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
@@ -25,7 +26,7 @@ import com.infinityraider.agricraft.api.v1.misc.IAgriPeripheralMethod;
 @SideOnly(Side.CLIENT)
 public class GuiPeripheral extends GuiContainer {
 
-    public static final ResourceLocation TEXTURE = new ResourceLocation(Reference.MOD_ID, "textures/gui/gui_peripheral.png");
+    public static final ResourceLocation TEXTURE = new ResourceLocation(Tags.MOD_ID, "textures/gui/gui_peripheral.png");
 
     public static final int WHITE = 4210752;
 

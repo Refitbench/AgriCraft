@@ -1,6 +1,7 @@
 package com.infinityraider.agricraft.items;
 
 import com.agricraft.agricore.core.AgriCore;
+import com.agricraft.agricore.log.AgriLogger;
 import com.infinityraider.agricraft.AgriCraft;
 import com.infinityraider.agricraft.reference.AgriNuggetType;
 import com.infinityraider.agricraft.utility.OreDictUtil;
@@ -8,6 +9,8 @@ import com.infinityraider.infinitylib.item.IAutoRenderedItem;
 import com.infinityraider.infinitylib.item.ItemBase;
 import java.util.ArrayList;
 import java.util.List;
+
+import infinityraider.infinitylib.Tags;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
@@ -66,16 +69,17 @@ public class ItemNugget extends ItemBase implements IAutoRenderedItem, IRecipeRe
 
     @Override
     public void registerRecipes(IForgeRegistry<IRecipe> registry) {
+        AgriLogger logger = AgriCore.getLogger(Tags.MOD_ID);
         for (AgriNuggetType type : AgriNuggetType.values()) {
             // 1) Ore Dictionary registration.
-            AgriCore.getLogger("agricraft").info("Registering in Ore Dictionary: {0}", type.nugget);
+            logger.info("Registering in Ore Dictionary: {0}", type.nugget);
             ItemStack oneNugget = new ItemStack(this, 1, type.ordinal());
             OreDictionary.registerOre(type.nugget, oneNugget);
 
             // 2) Conditional recipes. Only if the ingot exists, because AgriCraft doesn't add its own.
             ItemStack ingot = OreDictUtil.getFirstOre(type.ingot).orElse(ItemStack.EMPTY);
             if (!ingot.isEmpty()) {
-                AgriCore.getLogger("agricraft").info("Adding a recipe to convert nine {0} into one {1}", type.nugget, type.ingot);
+                logger.info("Adding a recipe to convert nine {0} into one {1}", type.nugget, type.ingot);
                 final ResourceLocation group = new ResourceLocation(AgriCraft.instance.getModId(), "combine_nugget");
                 final ResourceLocation name = new ResourceLocation(AgriCraft.instance.getModId(), "combine_nugget_" + type.name().toLowerCase());
                 final ShapedOreRecipe recipe = new ShapedOreRecipe(
@@ -87,7 +91,7 @@ public class ItemNugget extends ItemBase implements IAutoRenderedItem, IRecipeRe
                         'n', type.nugget
                 );
                 recipe.setRegistryName(name);
-                AgriCore.getLogger("agricraft").info("Registering nugget recipe: {0}!", recipe.getRegistryName());
+                logger.info("Registering nugget recipe: {0}!", recipe.getRegistryName());
                 registry.register(recipe);
             }
         }

@@ -8,7 +8,6 @@ import com.infinityraider.agricraft.items.blocks.ItemBlockAgricraft;
 import com.infinityraider.agricraft.items.tabs.AgriTabs;
 import com.infinityraider.agricraft.reference.AgriProperties;
 import com.infinityraider.agricraft.reference.Constants;
-import com.infinityraider.agricraft.reference.Reference;
 import com.infinityraider.agricraft.renderers.blocks.RenderSeedAnalyzer;
 import com.infinityraider.agricraft.tiles.analyzer.TileEntitySeedAnalyzer;
 import com.infinityraider.infinitylib.block.BlockTileCustomRenderedBase;
@@ -17,6 +16,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+
+import infinityraider.infinitylib.Tags;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.particle.ParticleManager;
@@ -109,7 +110,7 @@ public class BlockSeedAnalyzer extends BlockTileCustomRenderedBase<TileEntitySee
             return false;
         }
         if (!world.isRemote) {
-            AgriCore.getLogger("agricraft").info("Opening Seed Analyzer GUI!");
+            AgriCore.getLogger(Tags.MOD_ID).info("Opening Seed Analyzer GUI!");
             player.openGui(AgriCraft.instance, GuiHandler.ANALYZER_GUI_ID, world, pos.getX(), pos.getY(), pos.getZ());
         }
         return true;
@@ -163,7 +164,7 @@ public class BlockSeedAnalyzer extends BlockTileCustomRenderedBase<TileEntitySee
     @Override
     @SideOnly(Side.CLIENT)
     public ModelResourceLocation getBlockModelResourceLocation() {
-        return new ModelResourceLocation(Reference.MOD_ID.toLowerCase() + ":" + getInternalName());
+        return new ModelResourceLocation(Tags.MOD_ID + ":" + getInternalName());
     }
 
     @Override

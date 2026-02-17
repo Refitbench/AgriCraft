@@ -6,12 +6,13 @@ import com.infinityraider.agricraft.api.v1.mutation.IAgriMutation;
 import com.infinityraider.agricraft.api.v1.plant.IAgriPlant;
 import com.infinityraider.agricraft.gui.component.BasicComponents;
 import com.infinityraider.agricraft.gui.component.GuiComponent;
-import com.infinityraider.agricraft.reference.Reference;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
+
+import infinityraider.infinitylib.Tags;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -23,11 +24,11 @@ public class JournalPageSeed implements JournalPage {
 
     public static final int MUTATION_ROW_HEIGHT = 20;
 
-    private static final ResourceLocation MUTATION_TEMPLATE = new ResourceLocation(Reference.MOD_ID, "textures/gui/journal/gui_journal_mutation_template.png");
-    private static final ResourceLocation QUESTION_MARK = new ResourceLocation(Reference.MOD_ID, "textures/gui/journal/gui_journal_question_mark.png");
-    private static final ResourceLocation BRIGHTNESS_BAR = new ResourceLocation(Reference.MOD_ID, "textures/gui/journal/gui_journal_brightness_bar.png");
-    private static final ResourceLocation BRIGHTNESS_FRAME = new ResourceLocation(Reference.MOD_ID, "textures/gui/journal/gui_journal_brightness_frame.png");
-    private static final ResourceLocation SEED_PAGE_FOREGROUND = new ResourceLocation(Reference.MOD_ID, "textures/gui/journal/gui_journal_page_seed.png");
+    private static final ResourceLocation MUTATION_TEMPLATE = new ResourceLocation(Tags.MOD_ID, "textures/gui/journal/gui_journal_mutation_template.png");
+    private static final ResourceLocation QUESTION_MARK = new ResourceLocation(Tags.MOD_ID, "textures/gui/journal/gui_journal_question_mark.png");
+    private static final ResourceLocation BRIGHTNESS_BAR = new ResourceLocation(Tags.MOD_ID, "textures/gui/journal/gui_journal_brightness_bar.png");
+    private static final ResourceLocation BRIGHTNESS_FRAME = new ResourceLocation(Tags.MOD_ID, "textures/gui/journal/gui_journal_brightness_frame.png");
+    private static final ResourceLocation SEED_PAGE_FOREGROUND = new ResourceLocation(Tags.MOD_ID, "textures/gui/journal/gui_journal_page_seed.png");
 
     private final GuiJournal journal;
     private final int page;

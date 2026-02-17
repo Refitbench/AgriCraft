@@ -1,13 +1,15 @@
 package com.infinityraider.agricraft.reference;
 
+import infinityraider.infinitylib.Tags;
+
 /**
  * This class is fine.
  *
  */
 public interface Reference {
 
-    String MOD_NAME = /*^${mod.name}^*/ "AgriCraft";
-    String MOD_ID = /*^${mod.id}^*/ "agricraft";
+    String MOD_NAME = /*^${mod.name}^*/ Tags.MOD_NAME;
+    String MOD_ID = /*^${mod.id}^*/ Tags.MOD_ID;
     String AUTHOR = /*^${mod.author}^*/ "Captain Nemo";
 
     String VER_MAJOR = /*^${mod.version_major}^*/ "0";

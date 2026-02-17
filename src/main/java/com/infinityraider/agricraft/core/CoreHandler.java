@@ -3,6 +3,7 @@ package com.infinityraider.agricraft.core;
 import com.agricraft.agricore.config.AgriConfigAdapter;
 import com.agricraft.agricore.core.AgriCore;
 import com.agricraft.agricore.json.AgriLoader;
+import com.agricraft.agricore.log.AgriLogger;
 import com.agricraft.agricore.plant.AgriMutation;
 import com.agricraft.agricore.plant.AgriPlant;
 import com.agricraft.agricore.plant.AgriSoil;
@@ -11,16 +12,19 @@ import com.infinityraider.agricraft.api.v1.AgriApi;
 import com.infinityraider.agricraft.api.v1.mutation.IAgriMutation;
 import com.infinityraider.agricraft.api.v1.plant.IAgriPlant;
 import com.infinityraider.agricraft.api.v1.soil.IAgriSoil;
-import com.infinityraider.agricraft.reference.Reference;
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.function.Consumer;
+
+import infinityraider.infinitylib.Tags;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import static infinityraider.infinitylib.Tags.MOD_ID;
 
 public final class CoreHandler {
 
@@ -46,7 +50,7 @@ public final class CoreHandler {
 
     public static void preInit(FMLPreInitializationEvent event) {
         // Setup Config.
-        configDir = event.getSuggestedConfigurationFile().getParentFile().toPath().resolve(Reference.MOD_ID);
+        configDir = event.getSuggestedConfigurationFile().getParentFile().toPath().resolve(Tags.MOD_ID);
         config = new Configuration(configDir.resolve("config.cfg").toFile());
 
         // Setup Plant Dir.
@@ -78,20 +82,17 @@ public final class CoreHandler {
     }
 
     public static void loadJsons() {
+        AgriLogger logger = AgriCore.getLogger(MOD_ID);
         // Load the core!
-        AgriCore.getLogger("agricraft").info("Attempting to read AgriCraft JSONs!");
-        AgriLoader.loadDirectory(
-                defaultDir,
-                AgriCore.getSoils(),
-                AgriCore.getPlants(),
-                AgriCore.getMutations()
-        );
-        AgriCore.getLogger("agricraft").info("Finished trying to read AgriCraft JSONs!");
+        logger.info("Attempting to read AgriCraft JSONs!");
+        AgriLoader.loadDirectory(defaultDir, AgriCore.getSoils(), AgriCore.getPlants(), AgriCore.getMutations());
+        logger.info("Finished trying to read AgriCraft JSONs!");
     }
 
     public static void initSoils() {
+        AgriLogger logger = AgriCore.getLogger(MOD_ID);
         // Announce Progress
-        AgriCore.getLogger("agricraft").info("Registering Soils!");
+        logger.info("Registering Soils!");
 
         // See if soils are valid...
         final int raw = AgriCore.getSoils().getAll().size();
@@ -99,21 +100,19 @@ public final class CoreHandler {
         final int count = AgriCore.getSoils().getAll().size();
 
         // Transfer
-        AgriCore.getSoils().getAll().stream()
-                .filter(AgriSoil::isEnabled)
-                .map(JsonSoil::new)
-                .forEach(AgriApi.getSoilRegistry()::add);
+        AgriCore.getSoils().getAll().stream().filter(AgriSoil::isEnabled).map(JsonSoil::new).forEach(AgriApi.getSoilRegistry()::add);
 
         // Display Soils
-        AgriCore.getLogger("agricraft").info("Registered Soils ({0}/{1}):", count, raw);
+        logger.info("Registered Soils ({0}/{1}):", count, raw);
         for (IAgriSoil soil : AgriApi.getSoilRegistry().all()) {
-            AgriCore.getLogger("agricraft").info(" - {0}", soil.getName());
+            logger.info(" - {0}", soil.getName());
         }
     }
 
     public static void initPlants() {
+        AgriLogger logger = AgriCore.getLogger(MOD_ID);
         // Announce Progress
-        AgriCore.getLogger("agricraft").info("Registering Plants!");
+        logger.info("Registering Plants!");
 
         // See if plants are valid...
         final int raw = AgriCore.getPlants().getAll().size();
@@ -122,21 +121,19 @@ public final class CoreHandler {
 
         // Transfer
         AgriCore.getPlants().validate();
-        AgriCore.getPlants().getAll().stream()
-                .filter(AgriPlant::isEnabled)
-                .map(JsonPlant::new)
-                .forEach(AgriApi.getPlantRegistry()::add);
+        AgriCore.getPlants().getAll().stream().filter(AgriPlant::isEnabled).map(JsonPlant::new).forEach(AgriApi.getPlantRegistry()::add);
 
         // Display Plants
-        AgriCore.getLogger("agricraft").info("Registered Plants ({0}/{1}):", count, raw);
+        logger.info("Registered Plants ({0}/{1}):", count, raw);
         for (IAgriPlant plant : AgriApi.getPlantRegistry().all()) {
-            AgriCore.getLogger("agricraft").info(" - {0}", plant.getPlantName());
+            logger.info(" - {0}", plant.getPlantName());
         }
     }
 
     public static void initMutations() {
+        AgriLogger logger = AgriCore.getLogger(MOD_ID);
         // Announce Progress
-        AgriCore.getLogger("agricraft").info("Registering Mutations!");
+        logger.info("Registering Mutations!");
 
         // See if mutations are valid...
         final int raw = AgriCore.getMutations().getAll().size();
@@ -152,9 +149,9 @@ public final class CoreHandler {
                 .forEach(AgriApi.getMutationRegistry()::add);
 
         // Display Mutations
-        AgriCore.getLogger("agricraft").info("Registered Mutations ({0}/{1}):", count, raw);
+        logger.info("Registered Mutations ({0}/{1}):", count, raw);
         for (IAgriMutation mutation : AgriApi.getMutationRegistry().all()) {
-            AgriCore.getLogger("agricraft").info(" - {0}", mutation);
+            logger.info(" - {0}", mutation);
         }
     }
 
@@ -163,7 +160,7 @@ public final class CoreHandler {
         AgriCore.getPlants().getAll().stream()
                 .flatMap(plant -> plant.getTexture().getAllTextures().stream())
                 .distinct()
-                .map(t -> new ResourceLocation(t))
+                .map(ResourceLocation::new)
                 .forEach(consumer);
     }
 

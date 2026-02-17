@@ -9,6 +9,7 @@ import com.infinityraider.agricraft.tiles.TileEntityCrop;
 import com.infinityraider.agricraft.utility.StackHelper;
 import com.infinityraider.infinitylib.utility.MessageUtil;
 import com.infinityraider.infinitylib.utility.WorldHelper;
+import infinityraider.infinitylib.Tags;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -29,7 +30,7 @@ import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 @SuppressWarnings("unused")
-@Mod.EventBusSubscriber(modid = "agricraft")
+@Mod.EventBusSubscriber(modid = Tags.MOD_ID)
 public class PlayerInteractEventHandler {
 
     /**

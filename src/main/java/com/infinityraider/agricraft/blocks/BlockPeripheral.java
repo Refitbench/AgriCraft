@@ -15,6 +15,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import javax.annotation.Nonnull;
+
+import infinityraider.infinitylib.Tags;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -54,7 +56,7 @@ public class BlockPeripheral extends BlockTileCustomRenderedBase<TileEntityPerip
 
     @Override
     public ModelResourceLocation getBlockModelResourceLocation() {
-        return new ModelResourceLocation(Reference.MOD_ID.toLowerCase() + ":" + getInternalName());
+        return new ModelResourceLocation(Tags.MOD_ID + ":" + getInternalName());
     }
 
     @Override

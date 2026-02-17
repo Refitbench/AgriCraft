@@ -12,6 +12,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import javax.annotation.Nullable;
+
+import infinityraider.infinitylib.Tags;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -54,7 +56,7 @@ public class CustomWoodTypeRegistry {
                     WOOD_TYPES.put(type.toString(), type);
                 }
             } else {
-                AgriCore.getLogger("agricraft").error("Unable to create wood type for {0}!", item.getRegistryName().toString());
+                AgriCore.getLogger(Tags.MOD_ID).error("Unable to create wood type for {0}!", item.getRegistryName().toString());
             }
         }
     }

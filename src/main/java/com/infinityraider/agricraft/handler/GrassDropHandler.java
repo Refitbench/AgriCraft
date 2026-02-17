@@ -7,6 +7,8 @@ import com.infinityraider.agricraft.api.v1.plant.IAgriPlant;
 import com.infinityraider.agricraft.reference.AgriCraftConfig;
 import java.util.List;
 import java.util.Random;
+
+import infinityraider.infinitylib.Tags;
 import net.minecraft.block.BlockTallGrass;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
@@ -19,7 +21,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
  *
  * @author Ryan
  */
-@Mod.EventBusSubscriber(modid = "agricraft")
+@Mod.EventBusSubscriber(modid = Tags.MOD_ID)
 public final class GrassDropHandler {
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)

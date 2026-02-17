@@ -1,9 +1,10 @@
 package com.infinityraider.agricraft.gui.journal;
 
 import com.infinityraider.agricraft.gui.component.GuiComponent;
-import com.infinityraider.agricraft.reference.Reference;
 import java.util.Collections;
 import java.util.List;
+
+import infinityraider.infinitylib.Tags;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -11,7 +12,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public interface JournalPage {
 
-    ResourceLocation BACKGROUND = new ResourceLocation(Reference.MOD_ID, "textures/gui/journal/gui_journal_background.png");
+    ResourceLocation BACKGROUND = new ResourceLocation(Tags.MOD_ID, "textures/gui/journal/gui_journal_background.png");
 
     /**
      * Gets the foreground texture

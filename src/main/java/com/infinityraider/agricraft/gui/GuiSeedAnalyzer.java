@@ -4,8 +4,8 @@ import com.agricraft.agricore.core.AgriCore;
 import com.infinityraider.agricraft.container.ContainerSeedAnalyzer;
 import com.infinityraider.agricraft.gui.component.BasicComponents;
 import com.infinityraider.agricraft.gui.journal.GuiJournal;
-import com.infinityraider.agricraft.reference.Reference;
 import com.infinityraider.agricraft.tiles.analyzer.TileEntitySeedAnalyzer;
+import infinityraider.infinitylib.Tags;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -15,7 +15,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class GuiSeedAnalyzer extends ComponentGui<ContainerSeedAnalyzer> {
 
-    public static final ResourceLocation ANALYZER_TEXTURE = new ResourceLocation(Reference.MOD_ID, "textures/gui/gui_seed_analyzer.png");
+    public static final ResourceLocation ANALYZER_TEXTURE = new ResourceLocation(Tags.MOD_ID, "textures/gui/gui_seed_analyzer.png");
 
     public TileEntitySeedAnalyzer seedAnalyzer;
 

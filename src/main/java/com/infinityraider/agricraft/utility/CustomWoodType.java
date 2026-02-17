@@ -6,6 +6,8 @@ import com.google.common.base.Preconditions;
 import com.infinityraider.agricraft.reference.AgriNBT;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
+import infinityraider.infinitylib.Tags;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -87,8 +89,8 @@ public class CustomWoodType {
             try {
                 texture = Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getTexture(state);
             } catch (Exception e) {
-                AgriCore.getLogger("agricraft").debug("Unable to load texture for custom wood block {0}!", getBlock().getRegistryName() + "@" + getMeta());
-                AgriCore.getLogger("agricraft").trace(e);
+                AgriCore.getLogger(Tags.MOD_ID).debug("Unable to load texture for custom wood block {0}!", getBlock().getRegistryName() + "@" + getMeta());
+                AgriCore.getLogger(Tags.MOD_ID).trace(e);
                 texture = Minecraft.getMinecraft().getTextureMapBlocks().getMissingSprite();
             }
         }

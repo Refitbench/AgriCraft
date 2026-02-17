@@ -7,6 +7,8 @@ import com.agricraft.agricore.core.AgriCore;
 import com.infinityraider.agricraft.AgriCraft;
 import com.infinityraider.agricraft.compat.jei.AgriCraftJEIPlugin;
 import javax.annotation.Nonnull;
+
+import infinityraider.infinitylib.Tags;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IDrawableStatic;
@@ -30,7 +32,7 @@ public class MutationRecipeCategory extends BlankRecipeCategory<MutationRecipeWr
         background = guiHelper.createBlankDrawable(128, 128);
         localizedName = AgriCore.getTranslator().translate("agricraft_nei.mutation.title");
         overlay = guiHelper.createDrawable(
-                new ResourceLocation("agricraft", "textures/gui/jei/crop_mutation.png"),
+                new ResourceLocation(Tags.MOD_ID, "textures/gui/jei/crop_mutation.png"),
                 0, 0, 128, 128
         );
     }

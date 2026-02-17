@@ -23,6 +23,8 @@ import java.util.List;
 import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.function.Consumer;
 import javax.annotation.Nonnull;
+
+import infinityraider.infinitylib.Tags;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.discovery.ASMDataTable;
@@ -132,7 +134,7 @@ public final class PluginHandler {
     }
     
     private static void logPlugin(IAgriPlugin plugin) {
-        AgriCore.getLogger("agricraft").info("\nFound AgriCraft Plugin:\n\t- Id: {0}\n\t- Name: {1}\n\t- Status: {2}", plugin.getId(), plugin.getName(), plugin.isEnabled() ? "Enabled" : "Disabled");
+        AgriCore.getLogger(Tags.MOD_ID).info("\nFound AgriCraft Plugin:\n\t- Id: {0}\n\t- Name: {1}\n\t- Status: {2}", plugin.getId(), plugin.getName(), plugin.isEnabled() ? "Enabled" : "Disabled");
     }
 
 }

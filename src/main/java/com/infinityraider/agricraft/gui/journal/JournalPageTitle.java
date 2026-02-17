@@ -1,6 +1,6 @@
 package com.infinityraider.agricraft.gui.journal;
 
-import com.infinityraider.agricraft.reference.Reference;
+import infinityraider.infinitylib.Tags;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -10,7 +10,7 @@ public class JournalPageTitle implements JournalPage {
 
     @Override
     public ResourceLocation getForeground() {
-        return new ResourceLocation(Reference.MOD_ID, "textures/gui/journal/gui_journal_page_front.png");
+        return new ResourceLocation(Tags.MOD_ID, "textures/gui/journal/gui_journal_page_front.png");
     }
 
 }

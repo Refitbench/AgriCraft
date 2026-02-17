@@ -6,6 +6,8 @@ import com.infinityraider.agricraft.utility.IAgriFluidComponentSyncable;
 import com.infinityraider.infinitylib.network.MessageBase;
 import com.infinityraider.infinitylib.utility.WorldHelper;
 import java.util.concurrent.atomic.AtomicInteger;
+
+import infinityraider.infinitylib.Tags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
@@ -23,7 +25,7 @@ public class MessageSyncFluidAmount extends MessageBase<IMessage> {
     public MessageSyncFluidAmount() {
         final int count = COUNTER.addAndGet(1);
         if (count % 100 == 0) {
-            AgriCore.getLogger("agricraft").debug("Created another hundred fluid update packets!");
+            AgriCore.getLogger(Tags.MOD_ID).debug("Created another hundred fluid update packets!");
         }
     }
 

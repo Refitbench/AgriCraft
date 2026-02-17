@@ -2,6 +2,7 @@ package com.infinityraider.agricraft.compat.botania;
 
 import com.infinityraider.agricraft.api.v1.plugin.AgriPlugin;
 import com.infinityraider.agricraft.api.v1.plugin.IAgriPlugin;
+import infinityraider.infinitylib.Tags;
 import net.minecraftforge.fml.common.Loader;
 import vazkii.botania.api.BotaniaAPI;
 import vazkii.botania.api.wiki.SimpleWikiProvider;
@@ -27,7 +28,7 @@ public class BotaniaPlugin implements IAgriPlugin {
     @Override
     public void initPlugin() {
         // TODO!
-        BotaniaAPI.registerModWiki("agricraft", new SimpleWikiProvider("AgriCraft Wiki", "https://agridocs.readthedocs.io/%s"));
+        BotaniaAPI.registerModWiki(Tags.MOD_ID, new SimpleWikiProvider("AgriCraft Wiki", "https://agridocs.readthedocs.io/%s"));
     }
 
 }

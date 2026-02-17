@@ -2,6 +2,9 @@ package com.infinityraider.agricraft.utility;
 
 import com.agricraft.agricore.core.AgriCore;
 import javax.annotation.Nonnull;
+
+import com.agricraft.agricore.log.AgriLogger;
+import infinityraider.infinitylib.Tags;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -38,9 +41,10 @@ public enum BaseIcons {
 
     public TextureAtlasSprite getIcon() {
         if (!isLoaded) {
-            AgriCore.getLogger("agricraft").debug("Load Icon " + this.name() + " STARTED...");
+            AgriLogger logger = AgriCore.getLogger(Tags.MOD_ID);
+            logger.debug("Load Icon " + this.name() + " STARTED...");
             isLoaded = attemptLoad();
-            AgriCore.getLogger("agricraft").debug("Load Icon " + this.name() + ": " + (isLoaded ? "SUCEEDED!" : "FAILED!"));
+            logger.debug("Load Icon " + this.name() + ": " + (isLoaded ? "SUCEEDED!" : "FAILED!"));
 }
         return cachedIcon;
     }

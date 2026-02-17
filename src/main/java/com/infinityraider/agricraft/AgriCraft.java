@@ -13,20 +13,14 @@ import com.infinityraider.agricraft.network.json.MessageSyncMutationJson;
 import com.infinityraider.agricraft.network.json.MessageSyncPlantJson;
 import com.infinityraider.agricraft.network.json.MessageSyncSoilJson;
 import com.infinityraider.agricraft.proxy.IProxy;
-import com.infinityraider.agricraft.reference.AgriAlphaWarnings;
 import com.infinityraider.agricraft.reference.Reference;
 import com.infinityraider.infinitylib.InfinityMod;
 import com.infinityraider.infinitylib.config.IModConfiguration;
 import com.infinityraider.infinitylib.config.ModConfiguration;
 import com.infinityraider.infinitylib.network.INetworkWrapper;
-import net.minecraftforge.common.ForgeHooks;
+import infinityraider.infinitylib.Tags;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
-import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.PlayerEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
  * <p>
@@ -56,19 +50,10 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  *
  * @author InfinityRaider
  */
-@Mod(
-        modid = Reference.MOD_ID,
-        name = Reference.MOD_NAME,
-        version = Reference.MOD_VERSION,
-        guiFactory = Reference.GUI_FACTORY_CLASS,
-        updateJSON = Reference.UPDATE_URL,
-        dependencies
-        = "required-after:forge@[" + Reference.VERSION_FORGE + ",);"
-        + "required-after:infinitylib@[" + Reference.VERSION_INFLIB + ",);"
-)
+@Mod(modid = Tags.MOD_ID, name = Tags.MOD_NAME, version = Reference.MOD_VERSION, guiFactory = Reference.GUI_FACTORY_CLASS, updateJSON = Reference.UPDATE_URL)
 public class AgriCraft extends InfinityMod {
 
-    @Mod.Instance(Reference.MOD_ID)
+    @Mod.Instance(Tags.MOD_ID)
     public static AgriCraft instance;
 
     @SidedProxy(clientSide = Reference.CLIENT_PROXY_CLASS, serverSide = Reference.SERVER_PROXY_CLASS)
@@ -81,7 +66,7 @@ public class AgriCraft extends InfinityMod {
 
     @Override
     public String getModId() {
-        return Reference.MOD_ID;
+        return Tags.MOD_ID;
     }
 
     @Override
