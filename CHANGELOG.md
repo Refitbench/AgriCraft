@@ -1,5 +1,10 @@
 # Changelog
 
+## [2.17.1] - 2026-03-16
+
+### Fixed
+- Check if a feature is enabled before registering it's recipes
+
 ## [2.17.0] - 2026-02-17
 
 ### Changed
