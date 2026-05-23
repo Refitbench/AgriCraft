@@ -2,20 +2,28 @@ package com.infinityraider.agricraft.items;
 
 import com.agricraft.agricore.config.AgriConfigCategory;
 import com.agricraft.agricore.config.AgriConfigurable;
+import com.agricraft.agricore.core.AgriCore;
 import com.google.common.collect.ImmutableList;
 import com.infinityraider.agricraft.api.v1.AgriApi;
 import com.infinityraider.agricraft.api.v1.crop.IAgriCrop;
 import com.infinityraider.agricraft.api.v1.items.IAgriTrowelItem;
 import com.infinityraider.agricraft.api.v1.seed.AgriSeed;
+import com.infinityraider.agricraft.init.AgriBlocks;
 import com.infinityraider.agricraft.items.tabs.AgriTabs;
+import com.infinityraider.agricraft.reference.AgriCraftConfig;
 import com.infinityraider.agricraft.reference.AgriNBT;
+import com.infinityraider.agricraft.reference.WaterPadCompatMode;
 import com.infinityraider.agricraft.utility.StackHelper;
 import com.infinityraider.infinitylib.item.IItemWithModel;
 import com.infinityraider.infinitylib.item.ItemBase;
 import java.util.List;
 import java.util.Optional;
+import javax.annotation.Nullable;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -25,6 +33,8 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.Tuple;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemTrowel extends ItemBase implements IAgriTrowelItem, IItemWithModel {
 
@@ -60,6 +70,22 @@ public class ItemTrowel extends ItemBase implements IAgriTrowelItem, IItemWithMo
     @Override
     public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing side, float hitx, float hity, float hitz) {
         ItemStack stack = player.getHeldItem(hand);
+
+        // Pass if water pad compat is enabled with trowel mode, create waterpad.
+        final WaterPadCompatMode mode = AgriCraftConfig.getWaterPadCompatMode();
+        if (mode.usesTrowel()) {
+            final IBlockState state = world.getBlockState(pos);
+            if (state.getBlock() == Blocks.FARMLAND) {
+                if (!world.isRemote) {
+                    world.setBlockState(pos, AgriBlocks.getInstance().WATER_PAD.getDefaultState(), 3);
+                    if (!player.capabilities.isCreativeMode) {
+                        stack.damageItem(1, player);
+                    }
+                }
+                return EnumActionResult.SUCCESS;
+            }
+        }
+
         TileEntity te = world.getTileEntity(pos);
         if (te instanceof IAgriCrop) {
             IAgriCrop crop = (IAgriCrop) te;
@@ -100,6 +126,15 @@ public class ItemTrowel extends ItemBase implements IAgriTrowelItem, IItemWithMo
     @Override
     public boolean isEnabled() {
         return enableTrowel;
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flag) {
+        tooltip.add(AgriCore.getTranslator().translate("agricraft_tooltip.trowel"));
+        if (AgriCraftConfig.getWaterPadCompatMode().usesTrowel()) {
+            tooltip.add(AgriCore.getTranslator().translate("agricraft_tooltip.trowel_waterpad"));
+        }
     }
 
     @Override

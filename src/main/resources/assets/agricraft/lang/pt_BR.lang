@@ -88,6 +88,7 @@ agricraft_tooltip.weeds=As ervas daninhas brotaram aqui
 agricraft_tooltip.cropWithoutPlant=Aqui não tem uma planta
 agricraft_tooltip.notCrop=Isso não é uma colheita
 agricraft_tooltip.trowel=Use isso para mover plantas de uma colheita para outra
+agricraft_tooltip.trowel_waterpad=Clique com o botão direito em terra cultivada para criar um Bloco d'Água
 agricraft_tooltip.magnifyingGlass=Use isso para inspecionar os gravetos
 agricraft_tooltip.rake=Use isso para remover ervas daninhas
 agricraft_tooltip.closed=Fechado

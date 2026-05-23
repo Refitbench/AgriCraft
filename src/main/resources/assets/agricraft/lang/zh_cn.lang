@@ -88,6 +88,7 @@ agricraft_tooltip.weeds=杂草开始在这里生长了
 agricraft_tooltip.cropWithoutPlant=这个作物架是空的
 agricraft_tooltip.notCrop=这不是作物架
 agricraft_tooltip.trowel=用这个把作物从一个作物架上移动到另一个上
+agricraft_tooltip.trowel_waterpad=右键点击耕地以创建水垫
 agricraft_tooltip.magnifyingGlass=用这个来检查作物
 agricraft_tooltip.rake=用这个铲除作物架上的杂草
 agricraft_tooltip.closed=关闭

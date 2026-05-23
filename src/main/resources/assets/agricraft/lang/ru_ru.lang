@@ -88,6 +88,7 @@ agricraft_tooltip.weeds=Здесь проросли сорняки
 agricraft_tooltip.cropWithoutPlant=На этих жёрдочках нет растений
 agricraft_tooltip.notCrop=Это не жёрдочки
 agricraft_tooltip.trowel=Используется для перемещения растений между жёрдочками
+agricraft_tooltip.trowel_waterpad=Нажмите ПКМ на пашню для создания Водяного помоста
 agricraft_tooltip.magnifyingGlass=Используется для проверки жёрдочек
 agricraft_tooltip.rake=Используются для удаления сорняков с жёрдочек
 agricraft_tooltip.closed=Закрыто

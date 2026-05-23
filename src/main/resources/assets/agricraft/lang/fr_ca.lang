@@ -85,6 +85,7 @@ agricraft_tooltip.weeds=Les mauvaises herbes ont poussées ici
 agricraft_tooltip.cropWithoutPlant=Ce tuteur n'a pas de plante sur lui
 agricraft_tooltip.notCrop=Ceci n'est pas un tuteur
 agricraft_tooltip.trowel=Utilisez-le pour déplacé les plantes d'un tuteur à l'autre
+agricraft_tooltip.trowel_waterpad=Clic droit sur de la terre cultivée pour créer un Coussinet d'eau
 agricraft_tooltip.magnifyingGlass=utilisez-la pour inspecter vos plantes
 agricraft_tooltip.rake=utilisez ceci pour enlever les mauvaises herbes
 agricraft_tooltip.closed=Fermé

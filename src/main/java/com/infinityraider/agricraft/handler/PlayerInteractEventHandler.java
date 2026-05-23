@@ -5,6 +5,7 @@ import com.infinityraider.agricraft.api.v1.crop.IAgriCrop;
 import com.infinityraider.agricraft.blocks.BlockGrate;
 import com.infinityraider.agricraft.init.AgriBlocks;
 import com.infinityraider.agricraft.reference.AgriCraftConfig;
+import com.infinityraider.agricraft.reference.WaterPadCompatMode;
 import com.infinityraider.agricraft.tiles.TileEntityCrop;
 import com.infinityraider.agricraft.utility.StackHelper;
 import com.infinityraider.infinitylib.utility.MessageUtil;
@@ -122,6 +123,18 @@ public class PlayerInteractEventHandler {
 
         // Test that clicked block was farmland.
         if (block != Blocks.FARMLAND) {
+            return;
+        }
+
+        final WaterPadCompatMode mode = AgriCraftConfig.getWaterPadCompatMode();
+
+        // In trowel-only mode with compatibility.
+        if (!mode.usesShovel()) {
+            return;
+        }
+
+        // In require shift mode the player must be sneaking for the shovel to trigger.
+        if (mode.requiresShift() && !event.getEntityPlayer().isSneaking()) {
             return;
         }
 

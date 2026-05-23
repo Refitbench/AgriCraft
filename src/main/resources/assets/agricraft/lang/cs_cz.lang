@@ -88,6 +88,7 @@ agricraft_tooltip.weeds=Zde vyklíčil plevel
 agricraft_tooltip.cropWithoutPlant=Tato rostlina na sobě nemá plod
 agricraft_tooltip.notCrop=Toto není rostlina
 agricraft_tooltip.trowel=Použijte toto pro přesunutí rostliny z jednoho políčka na druhé
+agricraft_tooltip.trowel_waterpad=Klikněte pravým tlačítkem na obdělanou půdu pro vytvoření Vodní podložky
 agricraft_tooltip.magnifyingGlass=Použijte toto pro inspekci rostliny
 agricraft_tooltip.rake=Použijte toto pro odstranění plevelu
 agricraft_tooltip.closed=Zavřeno

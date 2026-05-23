@@ -10,6 +10,7 @@ import com.agricraft.agricore.config.AgriConfigCategory;
 import com.agricraft.agricore.config.AgriConfigurable;
 import com.agricraft.agricore.core.AgriCore;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraftforge.fml.common.Loader;
 
 /**
  * AgriCraft Configuration File.
@@ -132,6 +133,33 @@ public class AgriCraftConfig {
     // Decoration
     @AgriConfigurable(category = AgriConfigCategory.DECORATION, key = "Enable Grates", comment = "Set to false to disable the decorative custom wood grates.")
     public static boolean enableGrates = true;
+
+    // Compatibility
+    @AgriConfigurable(
+            category = AgriConfigCategory.COMPATIBILITY,
+            key = "Water Pad Compat Mode",
+            comment = "Controls how Water Pads can be created when Tea Story is also installed.\n"
+                    + "  none   = Default: shovel right-click on farmland creates a Water Pad.\n"
+                    + "  trowel = Only the AgriCraft trowel creates Water Pads.\n"
+                    + "  shift  = Shovel + Sneak creates a Water Pad.\n"
+                    + "  both   = Trowel OR Shift+Shovel creates a Water Pad.")
+    public static String waterPadCompatMode = "both";
+
+    private static Boolean teaStoryPresent = null;
+
+    public static WaterPadCompatMode getWaterPadCompatMode() {
+        if (teaStoryPresent == null) {
+            teaStoryPresent = Loader.isModLoaded("teastory");
+        }
+        if (!teaStoryPresent) {
+            return WaterPadCompatMode.NONE;
+        }
+        try {
+            return WaterPadCompatMode.valueOf(waterPadCompatMode.trim().toUpperCase());
+        } catch (IllegalArgumentException e) {
+            return WaterPadCompatMode.NONE;
+        }
+    }
 
     // Add to Configurator
     static {
