@@ -75,7 +75,7 @@ public class ItemTrowel extends ItemBase implements IAgriTrowelItem, IItemWithMo
         final WaterPadCompatMode mode = AgriCraftConfig.getWaterPadCompatMode();
         if (mode.usesTrowel()) {
             final IBlockState state = world.getBlockState(pos);
-            if (state.getBlock() == Blocks.FARMLAND) {
+            if (state.getBlock() == Blocks.FARMLAND && !(world.getTileEntity(pos.up()) instanceof IAgriCrop)) {
                 if (!world.isRemote) {
                     world.setBlockState(pos, AgriBlocks.getInstance().WATER_PAD.getDefaultState(), 3);
                     if (!player.capabilities.isCreativeMode) {
