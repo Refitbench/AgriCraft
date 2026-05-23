@@ -131,7 +131,6 @@ public class ItemTrowel extends ItemBase implements IAgriTrowelItem, IItemWithMo
     @SideOnly(Side.CLIENT)
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flag) {
-        tooltip.add(AgriCore.getTranslator().translate("agricraft_tooltip.trowel"));
         if (AgriCraftConfig.getWaterPadCompatMode().usesTrowel()) {
             tooltip.add(AgriCore.getTranslator().translate("agricraft_tooltip.trowel_waterpad"));
         }
