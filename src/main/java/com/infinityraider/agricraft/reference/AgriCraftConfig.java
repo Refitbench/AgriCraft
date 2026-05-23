@@ -21,7 +21,7 @@ public class AgriCraftConfig {
     // Core
     @AgriConfigurable(category = AgriConfigCategory.CORE, key = "Crops per Craft", min = "1", max = "4", comment = "The number of crops you get per crafting operation.")
     public static int cropsPerCraft = 4;
-    @AgriConfigurable(category = AgriConfigCategory.CORE, key = "Crop Stat Cap", min = "1", max = "10", comment = "The maximum attainable value of the stats on a crop.")
+    @AgriConfigurable(category = AgriConfigCategory.CORE, key = "Crop Stat Cap", min = "1", max = "127", comment = "The maximum attainable value of the stats on a crop." + "\nValues higher than 10 have limited benefits, with only additional yield rolls being meaningful, and are not recommended.")
     public static int cropStatCap = 10;
     @AgriConfigurable(category = AgriConfigCategory.CORE, key = "Use boring alpha warning messages", comment = "Uses a boring one-line alpha warning message instead of the more interesting default ones.")
     public static boolean disableLinks = false;
