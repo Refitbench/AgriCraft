@@ -2,6 +2,7 @@ package com.infinityraider.agricraft.handler;
 
 import com.infinityraider.agricraft.api.v1.AgriApi;
 import com.infinityraider.agricraft.api.v1.crop.IAgriCrop;
+import com.infinityraider.agricraft.blocks.BlockCrop;
 import com.infinityraider.agricraft.blocks.BlockGrate;
 import com.infinityraider.agricraft.init.AgriBlocks;
 import com.infinityraider.agricraft.reference.AgriCraftConfig;
@@ -16,6 +17,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemSpade;
 import net.minecraft.item.ItemStack;
@@ -24,6 +26,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IPlantable;
+import net.minecraftforge.event.entity.player.BonemealEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.Event;
@@ -197,21 +200,13 @@ public class PlayerInteractEventHandler {
         event.setUseItem(Event.Result.DENY);
     }
 
-    /*
-     * Event handler to deny bonemeal while sneaking on crops that are not
-     * allowed to be bonemealed
-     */
     @SubscribeEvent(priority = EventPriority.HIGHEST)
-    public static void denyBonemeal(PlayerInteractEvent.RightClickBlock event) {
-        if (!event.getEntityPlayer().isSneaking()) {
-            return;
-        }
-        ItemStack heldItem = event.getEntityPlayer().getActiveItemStack();
-        if (!heldItem.isEmpty() && heldItem.getItem() == Items.DYE && heldItem.getItemDamage() == 15) {
-            TileEntity te = event.getWorld().getTileEntity(event.getPos());
-            if (te != null && (te instanceof TileEntityCrop)) {
-                event.setUseItem(Event.Result.DENY);
-            }
+    public static void denyBonemeal(BonemealEvent event) {
+        if (!AgriCraftConfig.allowBonemealByHand &&
+                event.getBlock().getBlock() instanceof BlockCrop &&
+                event.getStack().getItem() == Items.DYE &&
+                event.getStack().getItemDamage() == EnumDyeColor.WHITE.getDyeDamage()) {
+            event.setCanceled(true);
         }
     }
 
