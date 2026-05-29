@@ -1,5 +1,6 @@
 package com.infinityraider.agricraft.handler;
 
+import com.agricraft.agricore.util.TypeHelper;
 import com.infinityraider.agricraft.api.v1.AgriApi;
 import com.infinityraider.agricraft.api.v1.crop.IAgriCrop;
 import com.infinityraider.agricraft.blocks.BlockCrop;
@@ -7,21 +8,18 @@ import com.infinityraider.agricraft.blocks.BlockGrate;
 import com.infinityraider.agricraft.init.AgriBlocks;
 import com.infinityraider.agricraft.reference.AgriCraftConfig;
 import com.infinityraider.agricraft.reference.WaterPadCompatMode;
-import com.infinityraider.agricraft.tiles.TileEntityCrop;
 import com.infinityraider.agricraft.utility.StackHelper;
 import com.infinityraider.infinitylib.utility.MessageUtil;
-import com.infinityraider.infinitylib.utility.WorldHelper;
 import infinityraider.infinitylib.Tags;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemSpade;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -37,167 +35,71 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 @Mod.EventBusSubscriber(modid = Tags.MOD_ID)
 public class PlayerInteractEventHandler {
 
-    /**
-     * Event handler to disable vanilla farming.
-     * 
-     * @param event
-     */
     @SubscribeEvent(priority = EventPriority.HIGHEST)
-    public static void vanillaSeedPlanting(PlayerInteractEvent.RightClickBlock event) {
-        // If not disabled, don't bother.
-        if (!AgriCraftConfig.disableVanillaFarming) {
-            return;
-        }
-
-        // Fetch the event itemstack.
-        final ItemStack stack = event.getItemStack();
-
-        // If the stack is null, or otherwise invalid, who cares?
+    public static void handleRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
+        ItemStack stack = event.getItemStack();
         if (!StackHelper.isValid(stack)) {
             return;
         }
 
-        // If the item in the player's hand is not a seed, who cares?
-        if (!AgriApi.getSeedRegistry().hasAdapter(stack)) {
-            return;
-        }
-
-        // Fetch world information.
+        final Item item = stack.getItem();
         final BlockPos pos = event.getPos();
         final World world = event.getWorld();
         final IBlockState state = world.getBlockState(pos);
-
-        // Fetch the block at the location.
         final Block block = state.getBlock();
 
-        // If clicking crop block, who cares?
-        if (block instanceof IAgriCrop) {
-            return;
-        }
-
-        // If the item is an instance of IPlantable we need to perfom an extra check.
-        if (stack.getItem() instanceof IPlantable) {
-            // If the clicked block cannot support the given plant, then who cares?
-            if (!block.canSustainPlant(state, world, pos, EnumFacing.UP, (IPlantable) stack.getItem())) {
+        // Disable vanilla farming mechanic
+        if (AgriCraftConfig.disableVanillaFarming) {
+            // Player not holding registered seed
+            if (!AgriApi.getSeedRegistry().hasAdapter(stack)) {
                 return;
             }
+            // Player interacting with agri crop
+            if (block instanceof IAgriCrop) {
+                return;
+            }
+            // Extra check performed for IPlantable seeds
+            if (item instanceof IPlantable && !block.canSustainPlant(state, world, pos, EnumFacing.UP, (IPlantable) item)) {
+                return;
+            }
+            // Deny placement (or similar interactions)
+            event.setUseItem(Event.Result.DENY);
+            if (!event.getSide().isClient() && AgriCraftConfig.showDisabledVanillaFarmingWarning) {
+                MessageUtil.messagePlayer(event.getEntityPlayer(), "`7Vanilla planting is disabled!`r");
+            }
+            return; // Short-circuit
         }
-
-        // If clicking crop tile, who cares?
-        if (WorldHelper.getTile(event.getWorld(), event.getPos(), IAgriCrop.class).isPresent()) {
-            return;
+        // Water Pad creation mechanic
+        // Only perform when player is holding a shovel and interacting with a farmland
+        if (TypeHelper.isType(item, ItemSpade.class) && block == Blocks.FARMLAND) {
+            final WaterPadCompatMode mode = AgriCraftConfig.getWaterPadCompatMode();
+            // In trowel-only mode with compatibility
+            if (!mode.usesShovel()) {
+                return;
+            }
+            // In require shift mode the player must be sneaking for the shovel to trigger
+            if (mode.requiresShift() && !event.getEntityPlayer().isSneaking()) {
+                return;
+            }
+            // Deny interaction
+            event.setCanceled(true);
+            event.setCancellationResult(EnumActionResult.SUCCESS);
+            if (!event.getSide().isClient()) {
+                // Replace with water pad
+                world.setBlockState(pos, AgriBlocks.getInstance().WATER_PAD.getDefaultState(), 3);
+                // Damage the shovel
+                stack.damageItem(1, event.getEntityPlayer());
+            }
+            return; // Short-circuit
         }
-
-        // The player is attempting to plant a seed, which is simply unacceptable.
-        // We must deny this event.
-        event.setUseItem(Event.Result.DENY);
-
-        // If we are on the client side we are done.
-        if (event.getSide().isClient()) {
-            return;
+        // Vine placement denier
+        // Only perform when player is not shifting, holding vines and interacting with grates
+        if (!event.getEntityPlayer().isSneaking() &&
+                block instanceof BlockGrate &&
+                item == Item.getItemFromBlock(Blocks.VINE)) {
+            // setUseBlock not manipulated as BlockGrate#onBlockActivated needs to be called
+            event.setUseItem(Event.Result.DENY);
         }
-
-        // Should the server notify the player that vanilla farming has been disabled?
-        if (AgriCraftConfig.showDisabledVanillaFarmingWarning) {
-            MessageUtil.messagePlayer(event.getEntityPlayer(), "`7Vanilla planting is disabled!`r");
-        }
-    }
-
-    /*
-     * Event handler to create water pads
-     */
-    @SubscribeEvent(priority = EventPriority.HIGHEST)
-    public static void waterPadCreation(PlayerInteractEvent.RightClickBlock event) {
-        // Fetch held item.
-        final ItemStack stack = event.getItemStack();
-
-        // Check if holding shovel.
-        if (!StackHelper.isValid(stack, ItemSpade.class)) {
-            return;
-        }
-
-        // Fetch world information.
-        final BlockPos pos = event.getPos();
-        final World world = event.getWorld();
-        final IBlockState state = world.getBlockState(pos);
-
-        // Fetch the block at the location.
-        final Block block = state.getBlock();
-
-        // Test that clicked block was farmland.
-        if (block != Blocks.FARMLAND) {
-            return;
-        }
-
-        final WaterPadCompatMode mode = AgriCraftConfig.getWaterPadCompatMode();
-
-        // In trowel-only mode with compatibility.
-        if (!mode.usesShovel()) {
-            return;
-        }
-
-        // In require shift mode the player must be sneaking for the shovel to trigger.
-        if (mode.requiresShift() && !event.getEntityPlayer().isSneaking()) {
-            return;
-        }
-
-        // Deny the event.
-        event.setUseBlock(Event.Result.DENY);
-        event.setUseItem(Event.Result.DENY);
-        event.setResult(Event.Result.DENY);
-
-        // If we are on the client side we are done.
-        if (event.getSide().isClient()) {
-            return;
-        }
-
-        // Fetch the player.
-        final EntityPlayer player = event.getEntityPlayer();
-
-        // Create the new block on the server side.
-        world.setBlockState(pos, AgriBlocks.getInstance().WATER_PAD.getDefaultState(), 3);
-
-        // Damage player's tool if not in creative.
-        if (!player.capabilities.isCreativeMode) {
-            stack.damageItem(1, player);
-        }
-    }
-
-    /*
-     * This is done with an event because else the player will place the vines
-     * as a block instead of applying them to the grate
-     */
-    @SubscribeEvent(priority = EventPriority.HIGHEST)
-    public static void applyVinesToGrate(PlayerInteractEvent.RightClickBlock event) {
-        // Fetch the ItemStack
-        final ItemStack stack = event.getItemStack();
-
-        // If the stack is null, or otherwise invalid, who cares?
-        if (!StackHelper.isValid(stack)) {
-            return;
-        }
-
-        // If the player is not holding a stack of vines, who cares?
-        if (stack.getItem() != Item.getItemFromBlock(Blocks.VINE)) {
-            return;
-        }
-
-        // Fetch world information.
-        final BlockPos pos = event.getPos();
-        final World world = event.getWorld();
-        final IBlockState state = world.getBlockState(pos);
-
-        // Fetch the block at the location.
-        final Block block = state.getBlock();
-
-        // If the player isn't clicking a grate, who cares?
-        if (!(block instanceof BlockGrate)) {
-            return;
-        }
-
-        // The player is trying to place vines! Scandalous!
-        // We better deny the event!
-        event.setUseItem(Event.Result.DENY);
     }
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
