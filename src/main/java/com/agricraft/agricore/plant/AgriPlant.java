@@ -100,7 +100,7 @@ public class AgriPlant implements AgriSerializable {
     }
 
     public String getSeedName() {
-        return AgriCore.getTranslator().translateKeyOrDefault("agricraft.plant." + id.replace(':', '.') + ".seed", seed_name);
+        return AgriCore.getTranslator().translateKeyOrDefault("agricraft.plant." + id.replace(':', '.') + ".seed.name", seed_name);
     }
 
     public Collection<AgriStack> getSeedItems() {
