@@ -42,7 +42,7 @@ public class AgriSoil implements AgriSerializable {
     }
 
     public String getName() {
-        return name;
+        return AgriCore.getTranslator().translateKeyOrDefault("agricraft.soil." + id.replace(':', '.') + ".name", name);
     }
 
     public <T> List<T> getVarients(Class<T> token) {

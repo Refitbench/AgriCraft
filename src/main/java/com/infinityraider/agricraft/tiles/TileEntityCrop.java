@@ -94,18 +94,18 @@ public class TileEntityCrop extends TileEntityBase implements IAgriCrop, IDebugg
 
         // If the soil is wrong, report and abort.
         if (!seed.getPlant().getGrowthRequirement().hasValidSoil(this.getWorld(), pos)) {
-            MessageUtil.messagePlayer(player, "`7The soil is not valid for this seed. You can't plant it here.`r");
+            MessageUtil.messagePlayer(player, "`7" + AgriCore.getTranslator().translate("agricraft_message.invalidSoil") + "`r");
             return MethodResult.FAIL;
         }
 
         // If the additional conditions are wrong, warn and continue.
         if (!seed.getPlant().getGrowthRequirement().hasValidConditions(this.getWorld(), pos)) {
-            MessageUtil.messagePlayer(player, "`7Caution: This plant has additional requirements that are unmet.`r");
+            MessageUtil.messagePlayer(player, "`7" + AgriCore.getTranslator().translate("agricraft_message.unmetConditions") + "`r");
         }
 
         // If the lighting is wrong, warn and continue.
         if (!seed.getPlant().getGrowthRequirement().hasValidLight(this.getWorld(), pos)) {
-            MessageUtil.messagePlayer(player, "`7Caution: This plant won't grow with the current light level.`r");
+            MessageUtil.messagePlayer(player, "`7" + AgriCore.getTranslator().translate("agricraft_message.invalidLight") + "`r");
         }
 
 //        // Notify event listeners of a planting event.
