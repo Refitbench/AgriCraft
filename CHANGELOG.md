@@ -1,5 +1,19 @@
 # Changelog
 
+## [2.18.0] - 2026-05-31
+
+### Added
+- Configuration for how water pads are created, that can be used to circumvent overlapping mod interactions
+- Configuration for bonemealing AgriCraft crops
+- Language keys for seeds, crops, soils, tooltips and player messages
+
+### Changed
+- Maximum crop stat allowed value now increased to max byte
+
+### Fixed
+- Bonemealing logic
+- Right-clicking logic, now streamlined and optimized
+
 ## [2.17.3] - 2026-05-17
 
 ### Fixed
