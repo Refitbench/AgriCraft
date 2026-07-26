@@ -48,11 +48,11 @@ public class StructureGreenHouseIrrigated extends StructureGreenHouse {
 
         // Level off ground
         if(this.averageGroundLevel < 0) {
-            this.averageGroundLevel = getAverageGroundLevel(world, boundingBox);
+            this.averageGroundLevel = this.getAverageGroundLevel(world, boundingBox);
             if(this.averageGroundLevel < 0) {
                 return true;
             }
-            this.boundingBox.offset(0, this.averageGroundLevel - this.boundingBox.maxY + 7, 0);
+            this.boundingBox.offset(0, this.averageGroundLevel - this.boundingBox.maxY + ySize - 1, 0);
         }
 
         // Cobblestone base

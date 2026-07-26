@@ -58,16 +58,16 @@ public class StructureGreenHouse extends StructureVillagePieces.House1 {
 
         // Level off ground
         if(this.averageGroundLevel < 0) {
-            this.averageGroundLevel = getAverageGroundLevel(world, boundingBox);
+            this.averageGroundLevel = this.getAverageGroundLevel(world, boundingBox);
             if(this.averageGroundLevel < 0) {
                 return true;
             }
-            this.boundingBox.offset(0, this.averageGroundLevel - this.boundingBox.maxY + 7, 0);
+            this.boundingBox.offset(0, this.averageGroundLevel - this.boundingBox.maxY + ySize - 1, 0);
         }
 
         // Cobblestone base
         IBlockState cobblestone = this.getBiomeSpecificBlockState(Blocks.COBBLESTONE.getDefaultState());
-        this.fillWithBlocks(world, boundingBox, 0, 0, 0, xSize - 1, 0, zSize - 1, cobblestone, cobblestone, false);   //args: (worldIn, boundingBox, minX, minY, MinZ, maxX, maxY, maxZ, placeBlock, replaceBlock, doReplace)
+        this.fillWithBlocks(world, boundingBox, 0, 0, 0, xSize - 1, 0, zSize - 1, cobblestone, cobblestone, false);
 
         // Ring of gravel
         IBlockState gravel = Blocks.GRAVEL.getDefaultState();
