@@ -332,6 +332,14 @@ public class StructureGreenHouseIrrigated extends StructureGreenHouse {
         // Place seed analyzer
         this.generateStructureSeedAnalyzer(world, boundingBox, 11, 2, 4, EnumFacing.SOUTH);
 
+        // Prevent structure from floating or being blocked on top by terrain
+        for(int zz = 0; zz < zSize; ++zz) {
+            for(int xx = 0; xx < xSize; ++xx) {
+                this.clearCurrentPositionBlocksUpwards(world, xx, ySize - 1, zz, boundingBox);
+                this.replaceAirAndLiquidDownwards(world, cobblestone, xx, -1, zz, boundingBox);
+            }
+        }
+
         return true;
     }
 

@@ -30,7 +30,7 @@ public class StructureGreenHouse extends StructureVillagePieces.House1 {
 
     // Structure dimensions
     private static final int xSize = 17;
-    private static final int ySize = 10;
+    private static final int ySize = 8;
     private static final int zSize = 11;
 
     private int averageGroundLevel = -1;
@@ -211,6 +211,14 @@ public class StructureGreenHouse extends StructureVillagePieces.House1 {
         for(int x = 9; x <= 13; x++) {
             for(int z = 3; z <= 7; z++) {
                 this.generateStructureCrop(world, boundingBox, x, 2, z, (z % 2 == 0 && x % 2 == 0) || (x == 11 && z == 5), random, plants);
+            }
+        }
+
+        // Prevent structure from floating or being blocked on top by terrain
+        for(int zz = 0; zz < zSize; ++zz) {
+            for(int xx = 0; xx < xSize; ++xx) {
+                this.clearCurrentPositionBlocksUpwards(world, xx, ySize - 1, zz, boundingBox);
+                this.replaceAirAndLiquidDownwards(world, cobblestone, xx, -1, zz, boundingBox);
             }
         }
 
