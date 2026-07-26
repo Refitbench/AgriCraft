@@ -6,12 +6,9 @@ import com.infinityraider.agricraft.init.AgriBlocks;
 import com.infinityraider.agricraft.tiles.irrigation.TileEntityChannel;
 import com.infinityraider.agricraft.tiles.irrigation.TileEntityTank;
 import com.infinityraider.infinitylib.utility.WorldHelper;
-import net.minecraft.block.BlockFarmland;
-import net.minecraft.block.BlockLog;
-import net.minecraft.block.BlockStairs;
+import net.minecraft.block.*;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -59,8 +56,8 @@ public class StructureGreenHouseIrrigated extends StructureGreenHouse {
         }
 
         // Cobblestone base
-        IBlockState cobblestone = Blocks.COBBLESTONE.getDefaultState();
-        this.fillWithBlocks(world, boundingBox, 0, 0, 0, xSize - 1, 0, zSize - 1, cobblestone, cobblestone, false);   //args: (world, boundingBox, minX, minY, MinZ, maxX, maxY, maxZ, placeBlock, replaceBlock, doReplace)
+        IBlockState cobblestone = this.getBiomeSpecificBlockState(Blocks.COBBLESTONE.getDefaultState());
+        this.fillWithBlocks(world, boundingBox, 0, 0, 0, xSize - 1, 0, zSize - 1, cobblestone, cobblestone, false);
 
         // Ring of gravel
         IBlockState gravel = Blocks.GRAVEL.getDefaultState();
@@ -116,7 +113,7 @@ public class StructureGreenHouseIrrigated extends StructureGreenHouse {
         this.fillWithBlocks(world, boundingBox, 9, 1, 8, 13, 1, 12, farmland, farmland, false);
 
         // Place standing logs
-        IBlockState log = Blocks.LOG.getDefaultState();
+        IBlockState log = this.getBiomeSpecificBlockState(Blocks.LOG.getDefaultState());
         this.fillWithBlocks(world, boundingBox, 10, 2, 3, 10, 5, 3, log, log, false);
         this.fillWithBlocks(world, boundingBox, 13, 2, 3, 13, 5, 3, log, log, false);
         this.fillWithBlocks(world, boundingBox, 1, 2, 6, 1, 6, 6, log, log, false);
@@ -134,22 +131,30 @@ public class StructureGreenHouseIrrigated extends StructureGreenHouse {
         this.fillWithBlocks(world, boundingBox, 8, 2, 14, 8, 6, 14, log, log, false);
         this.fillWithBlocks(world, boundingBox, 15, 2, 14, 15, 6, 14, log, log, false);
 
+        IBlockState logXAxis = log;
+        IBlockState logZAxis = log;
+
+        if(log.getBlock() instanceof BlockLog) {
+            logXAxis = logXAxis.withProperty(LOG_AXIS, BlockLog.EnumAxis.X);
+            logZAxis = logZAxis.withProperty(LOG_AXIS, BlockLog.EnumAxis.Z);
+        }
+        
         // Logs along x-axis
-        this.fillWithBlocks(world, boundingBox, 11, 5, 3, 12, 5, 3, log.withProperty(LOG_AXIS, BlockLog.EnumAxis.X), log.withProperty(LOG_AXIS, BlockLog.EnumAxis.X), false);
-        this.fillWithBlocks(world, boundingBox, 2, 6, 6, 7, 6, 6, log.withProperty(LOG_AXIS, BlockLog.EnumAxis.X), log.withProperty(LOG_AXIS, BlockLog.EnumAxis.X), false);
-        this.fillWithBlocks(world, boundingBox, 9, 6, 6, 14, 6, 6, log.withProperty(LOG_AXIS, BlockLog.EnumAxis.X), log.withProperty(LOG_AXIS, BlockLog.EnumAxis.X), false);
-        this.fillWithBlocks(world, boundingBox, 4, 4, 6, 5, 4, 6, log.withProperty(LOG_AXIS, BlockLog.EnumAxis.X), log.withProperty(LOG_AXIS, BlockLog.EnumAxis.X), false);
-        this.fillWithBlocks(world, boundingBox, 11, 4, 6, 12, 4, 6, log.withProperty(LOG_AXIS, BlockLog.EnumAxis.X), log.withProperty(LOG_AXIS, BlockLog.EnumAxis.X), false);
-        this.fillWithBlocks(world, boundingBox, 2, 6, 14, 7, 6, 14, log.withProperty(LOG_AXIS, BlockLog.EnumAxis.X), log.withProperty(LOG_AXIS, BlockLog.EnumAxis.X), false);
-        this.fillWithBlocks(world, boundingBox, 9, 6, 14, 14, 6, 14, log.withProperty(LOG_AXIS, BlockLog.EnumAxis.X), log.withProperty(LOG_AXIS, BlockLog.EnumAxis.X), false);
+        this.fillWithBlocks(world, boundingBox, 11, 5, 3, 12, 5, 3, logXAxis, logXAxis, false);
+        this.fillWithBlocks(world, boundingBox, 2, 6, 6, 7, 6, 6, logXAxis, logXAxis, false);
+        this.fillWithBlocks(world, boundingBox, 9, 6, 6, 14, 6, 6, logXAxis, logXAxis, false);
+        this.fillWithBlocks(world, boundingBox, 4, 4, 6, 5, 4, 6, logXAxis, logXAxis, false);
+        this.fillWithBlocks(world, boundingBox, 11, 4, 6, 12, 4, 6, logXAxis, logXAxis, false);
+        this.fillWithBlocks(world, boundingBox, 2, 6, 14, 7, 6, 14, logXAxis, logXAxis, false);
+        this.fillWithBlocks(world, boundingBox, 9, 6, 14, 14, 6, 14, logXAxis, logXAxis, false);
         // Logs along z-axis
-        this.fillWithBlocks(world, boundingBox, 1, 6, 7, 1, 6, 13, log.withProperty(LOG_AXIS, BlockLog.EnumAxis.Z), log.withProperty(LOG_AXIS, BlockLog.EnumAxis.Z), false);
-        this.fillWithBlocks(world, boundingBox, 8, 6, 7, 8, 6, 13, log.withProperty(LOG_AXIS, BlockLog.EnumAxis.Z), log.withProperty(LOG_AXIS, BlockLog.EnumAxis.Z), false);
-        this.fillWithBlocks(world, boundingBox, 15, 6, 7, 15, 6, 13, log.withProperty(LOG_AXIS, BlockLog.EnumAxis.Z), log.withProperty(LOG_AXIS, BlockLog.EnumAxis.Z), false);
-        this.fillWithBlocks(world, boundingBox, 10, 5, 4, 10, 5, 5, log.withProperty(LOG_AXIS, BlockLog.EnumAxis.Z), log.withProperty(LOG_AXIS, BlockLog.EnumAxis.Z), false);
-        this.fillWithBlocks(world, boundingBox, 13, 5, 4, 13, 5, 5, log.withProperty(LOG_AXIS, BlockLog.EnumAxis.Z), log.withProperty(LOG_AXIS, BlockLog.EnumAxis.Z), false);
-        this.setBlockState(world, log.withProperty(LOG_AXIS, BlockLog.EnumAxis.Z), 1, 4, 10, boundingBox);
-        this.setBlockState(world, log.withProperty(LOG_AXIS, BlockLog.EnumAxis.Z), 15, 4, 10, boundingBox);
+        this.fillWithBlocks(world, boundingBox, 1, 6, 7, 1, 6, 13, logZAxis, logZAxis, false);
+        this.fillWithBlocks(world, boundingBox, 8, 6, 7, 8, 6, 13, logZAxis, logZAxis, false);
+        this.fillWithBlocks(world, boundingBox, 15, 6, 7, 15, 6, 13, logZAxis, logZAxis, false);
+        this.fillWithBlocks(world, boundingBox, 10, 5, 4, 10, 5, 5, logZAxis, logZAxis, false);
+        this.fillWithBlocks(world, boundingBox, 13, 5, 4, 13, 5, 5, logZAxis, logZAxis, false);
+        this.setBlockState(world, logZAxis, 1, 4, 10, boundingBox);
+        this.setBlockState(world, logZAxis, 15, 4, 10, boundingBox);
 
         // Cobblestone walls
         this.fillWithBlocks(world, boundingBox, 4, 2, 6, 5, 2, 6, cobblestone, cobblestone, false);
@@ -188,14 +193,14 @@ public class StructureGreenHouseIrrigated extends StructureGreenHouse {
         this.setBlockState(world, glass, 15, 5, 10, boundingBox);
 
         // Wooden pillars
-        IBlockState planks = Blocks.PLANKS.getDefaultState();
+        IBlockState planks = this.getBiomeSpecificBlockState(Blocks.PLANKS.getDefaultState());
         this.fillWithBlocks(world, boundingBox, 3, 2, 1, 3, 4, 1, planks, planks, false);
         this.fillWithBlocks(world, boundingBox, 3, 2, 4, 3, 4, 4, planks, planks, false);
         this.fillWithBlocks(world, boundingBox, 6, 2, 1, 6, 4, 1, planks, planks, false);
         this.fillWithBlocks(world, boundingBox, 6, 2, 4, 6, 4, 4, planks, planks, false);
 
         // Oak stairs - Tank
-        IBlockState stairs = Blocks.OAK_STAIRS.getDefaultState()
+        IBlockState stairs = this.getBiomeSpecificBlockState(Blocks.OAK_STAIRS.getDefaultState())
                 .withProperty(BlockStairs.HALF, BlockStairs.EnumHalf.TOP);
 
         this.setBlockState(world, stairs.withProperty(BlockStairs.FACING, EnumFacing.NORTH), 3, 4, 3, boundingBox);
@@ -220,9 +225,10 @@ public class StructureGreenHouseIrrigated extends StructureGreenHouse {
         this.setBlockState(world, stairs.withProperty(BlockStairs.FACING, EnumFacing.EAST), 13, 4, 4, boundingBox);
         this.setBlockState(world, stairs.withProperty(BlockStairs.FACING, EnumFacing.EAST), 13, 4, 5, boundingBox);
 
-        // Place doors
-        this.generateDoor(world, boundingBox, rand, 1, 2, 10, EnumFacing.EAST, Blocks.OAK_DOOR);
-        this.generateDoor(world, boundingBox, rand, 15, 2, 10, EnumFacing.WEST, Blocks.OAK_DOOR);
+        // Place doors (not using #createVillageDoor because it forces them to face NORTH)
+        BlockDoor door = this.biomeDoor();
+        this.generateDoor(world, boundingBox, rand, 1, 2, 10, EnumFacing.EAST, door);
+        this.generateDoor(world, boundingBox, rand, 15, 2, 10, EnumFacing.WEST, door);
 
         // Fill with air
         this.fillWithAir(world, boundingBox, 0, 2, 0, 0, 9, 15);
@@ -254,7 +260,7 @@ public class StructureGreenHouseIrrigated extends StructureGreenHouse {
         this.fillWithAir(world, boundingBox, 12, 2, 4, 12, 4, 4);
 
         // Place fences
-        IBlockState fence = Blocks.OAK_FENCE.getDefaultState();
+        IBlockState fence = this.getBiomeSpecificBlockState(Blocks.OAK_FENCE.getDefaultState());
         this.fillWithBlocks(world, boundingBox, 1, 2, 1, 2, 2, 1, fence, fence, false);
         this.fillWithBlocks(world, boundingBox, 4, 2, 1, 5, 2, 1, fence, fence, false);
         this.fillWithBlocks(world, boundingBox, 7, 2, 1, 15, 2, 1, fence, fence, false);
@@ -306,23 +312,26 @@ public class StructureGreenHouseIrrigated extends StructureGreenHouse {
             }
         }
 
+        // We can ignore checking if the planks are actually planks (and not sandstone) because it will be done
+        // later in #setMaterial, and in that case it will automatically fall back to default oak planks
+        Block irrigationMaterialBlock = planks.getBlock();
+        int irrigationMaterialMeta = irrigationMaterialBlock.getMetaFromState(planks);
+
         // Place water tank
         for(int x = 3; x <= 6; x++) {
             for(int y = 5; y <= 8; y++) {
                 for(int z = 1; z <= 4; z++) {
-                    this.generateStructureWoodenTank(world, boundingBox, x, y, z);
+                    this.generateStructureWoodenTank(world, boundingBox, x, y, z, irrigationMaterialBlock, irrigationMaterialMeta);
                 }
             }
         }
 
         // Place irrigation channels
-        this.fillWithBlocks(world, boundingBox, 5, 5, 5, 5, 5, 10, AgriBlocks.getInstance().CHANNEL.getDefaultState(), AgriBlocks.getInstance().CHANNEL.getDefaultState(), false);
         for(int z = 5; z <= 10; z++) {
-            this.generateStructureIrrigationChannel(world, boundingBox, 5, 5, z);
+            this.generateStructureIrrigationChannel(world, boundingBox, 5, 5, z, irrigationMaterialBlock, irrigationMaterialMeta);
         }
-        this.fillWithBlocks(world, boundingBox, 6, 5, 10, 11, 5, 10, AgriBlocks.getInstance().CHANNEL.getDefaultState(), AgriBlocks.getInstance().CHANNEL.getDefaultState(), false);
         for(int x = 6; x <= 11; x++) {
-            this.generateStructureIrrigationChannel(world, boundingBox, x, 5, 10);
+            this.generateStructureIrrigationChannel(world, boundingBox, x, 5, 10, irrigationMaterialBlock, irrigationMaterialMeta);
         }
 
         // Place sprinklers
@@ -343,7 +352,7 @@ public class StructureGreenHouseIrrigated extends StructureGreenHouse {
         return true;
     }
 
-    protected void generateStructureWoodenTank(World world, StructureBoundingBox boundingBox, int x, int y, int z) {
+    protected void generateStructureWoodenTank(World world, StructureBoundingBox boundingBox, int x, int y, int z, Block materialBlock, int materialMeta) {
 
         int xCoord = this.getXWithOffset(x, z);
         int yCoord = this.getYWithOffset(y);
@@ -363,7 +372,7 @@ public class StructureGreenHouseIrrigated extends StructureGreenHouse {
             world.setTileEntity(pos, tank);
         }
 
-        tank.setMaterial(new ItemStack(Blocks.PLANKS, 1, 0));
+        tank.setMaterial(materialBlock, materialMeta);
 
         WorldHelper.getTile(world, pos, IAgriConnectable.class)
                 .ifPresent(IAgriConnectable::refreshConnections);
@@ -373,7 +382,7 @@ public class StructureGreenHouseIrrigated extends StructureGreenHouse {
 
     }
 
-    protected void generateStructureIrrigationChannel(World world, StructureBoundingBox boundingBox, int x, int y, int z) {
+    protected void generateStructureIrrigationChannel(World world, StructureBoundingBox boundingBox, int x, int y, int z, Block materialBlock, int materialMeta) {
 
         int xCoord = this.getXWithOffset(x, z);
         int yCoord = this.getYWithOffset(y);
@@ -392,7 +401,7 @@ public class StructureGreenHouseIrrigated extends StructureGreenHouse {
             return;
         }
 
-        channel.setMaterial(new ItemStack(Blocks.PLANKS, 1, 0));
+        channel.setMaterial(materialBlock, materialMeta);
 
         WorldHelper.getTile(world, pos, IAgriConnectable.class)
                 .ifPresent(IAgriConnectable::refreshConnections);

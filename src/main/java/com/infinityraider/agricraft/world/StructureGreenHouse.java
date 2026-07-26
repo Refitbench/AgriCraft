@@ -9,6 +9,7 @@ import com.infinityraider.agricraft.reference.AgriCraftConfig;
 import com.infinityraider.agricraft.tiles.TileEntityCrop;
 import com.infinityraider.agricraft.tiles.analyzer.TileEntitySeedAnalyzer;
 import com.infinityraider.agricraft.utility.WorldGenerationHelper;
+import net.minecraft.block.BlockDoor;
 import net.minecraft.block.BlockFarmland;
 import net.minecraft.block.BlockLog;
 import net.minecraft.block.state.IBlockState;
@@ -65,7 +66,7 @@ public class StructureGreenHouse extends StructureVillagePieces.House1 {
         }
 
         // Cobblestone base
-        IBlockState cobblestone = Blocks.COBBLESTONE.getDefaultState();
+        IBlockState cobblestone = this.getBiomeSpecificBlockState(Blocks.COBBLESTONE.getDefaultState());
         this.fillWithBlocks(world, boundingBox, 0, 0, 0, xSize - 1, 0, zSize - 1, cobblestone, cobblestone, false);   //args: (worldIn, boundingBox, minX, minY, MinZ, maxX, maxY, maxZ, placeBlock, replaceBlock, doReplace)
 
         // Ring of gravel
@@ -113,7 +114,7 @@ public class StructureGreenHouse extends StructureVillagePieces.House1 {
         this.fillWithBlocks(world, boundingBox, 9, 1, 3, 13, 1, 7, farmland, farmland, false);
 
         // Place standing logs
-        IBlockState log = Blocks.LOG.getDefaultState();
+        IBlockState log = this.getBiomeSpecificBlockState(Blocks.LOG.getDefaultState());
         this.fillWithBlocks(world, boundingBox, 1, 2, 1, 1, 6, 1, log, log, false);
         this.fillWithBlocks(world, boundingBox, 8, 2, 1, 8, 6, 1, log, log, false);
         this.fillWithBlocks(world, boundingBox, 15, 2, 1, 15, 6, 1, log, log, false);
@@ -125,17 +126,25 @@ public class StructureGreenHouse extends StructureVillagePieces.House1 {
         this.fillWithBlocks(world, boundingBox, 8, 2, 9, 8, 6, 9, log, log, false);
         this.fillWithBlocks(world, boundingBox, 15, 2, 9, 15, 6, 9, log, log, false);
 
+        IBlockState logXAxis = log;
+        IBlockState logZAxis = log;
+
+        if(log.getBlock() instanceof BlockLog) {
+            logXAxis = logXAxis.withProperty(LOG_AXIS, BlockLog.EnumAxis.X);
+            logZAxis = logZAxis.withProperty(LOG_AXIS, BlockLog.EnumAxis.Z);
+        }
+
         // Logs along x-axis
-        this.fillWithBlocks(world, boundingBox, 2, 6, 1, 7, 6, 1, log.withProperty(LOG_AXIS, BlockLog.EnumAxis.X), log.withProperty(LOG_AXIS, BlockLog.EnumAxis.X), false);
-        this.fillWithBlocks(world, boundingBox, 9, 6, 1, 14, 6, 1, log.withProperty(LOG_AXIS, BlockLog.EnumAxis.X), log.withProperty(LOG_AXIS, BlockLog.EnumAxis.X), false);
-        this.fillWithBlocks(world, boundingBox, 2, 6, 9, 7, 6, 9, log.withProperty(LOG_AXIS, BlockLog.EnumAxis.X), log.withProperty(LOG_AXIS, BlockLog.EnumAxis.X), false);
-        this.fillWithBlocks(world, boundingBox, 9, 6, 9, 14, 6, 9, log.withProperty(LOG_AXIS, BlockLog.EnumAxis.X), log.withProperty(LOG_AXIS, BlockLog.EnumAxis.X), false);
+        this.fillWithBlocks(world, boundingBox, 2, 6, 1, 7, 6, 1, logXAxis, logXAxis, false);
+        this.fillWithBlocks(world, boundingBox, 9, 6, 1, 14, 6, 1, logXAxis, logXAxis, false);
+        this.fillWithBlocks(world, boundingBox, 2, 6, 9, 7, 6, 9, logXAxis, logXAxis, false);
+        this.fillWithBlocks(world, boundingBox, 9, 6, 9, 14, 6, 9, logXAxis, logXAxis, false);
         // Logs along z-axis
-        this.fillWithBlocks(world, boundingBox, 1, 6, 2, 1, 6, 8, log.withProperty(LOG_AXIS, BlockLog.EnumAxis.Z), log.withProperty(LOG_AXIS, BlockLog.EnumAxis.Z), false);
-        this.fillWithBlocks(world, boundingBox, 8, 6, 2, 8, 6, 8, log.withProperty(LOG_AXIS, BlockLog.EnumAxis.Z), log.withProperty(LOG_AXIS, BlockLog.EnumAxis.Z), false);
-        this.fillWithBlocks(world, boundingBox, 15, 6, 2, 15, 6, 8, log.withProperty(LOG_AXIS, BlockLog.EnumAxis.Z), log.withProperty(LOG_AXIS, BlockLog.EnumAxis.Z), false);
-        this.setBlockState(world, log.withProperty(LOG_AXIS, BlockLog.EnumAxis.Z), 1, 4, 5, boundingBox); // ???
-        this.setBlockState(world, log.withProperty(LOG_AXIS, BlockLog.EnumAxis.Z), 15, 4, 5, boundingBox);
+        this.fillWithBlocks(world, boundingBox, 1, 6, 2, 1, 6, 8, logZAxis, logZAxis, false);
+        this.fillWithBlocks(world, boundingBox, 8, 6, 2, 8, 6, 8, logZAxis, logZAxis, false);
+        this.fillWithBlocks(world, boundingBox, 15, 6, 2, 15, 6, 8, logZAxis, logZAxis, false);
+        this.setBlockState(world, logZAxis, 1, 4, 5, boundingBox); // ???
+        this.setBlockState(world, logZAxis, 15, 4, 5, boundingBox);
 
         // Cobblestone walls
         this.fillWithBlocks(world, boundingBox, 2, 2, 1, 7, 2, 1, cobblestone, cobblestone, false);
@@ -162,9 +171,10 @@ public class StructureGreenHouse extends StructureVillagePieces.House1 {
         this.setBlockState(world, glass, 1, 5, 5, boundingBox);
         this.setBlockState(world, glass, 15, 5, 5, boundingBox);
 
-        // Place doors
-        this.generateDoor(world, boundingBox, rand, 1, 2, 5, EnumFacing.EAST, Blocks.OAK_DOOR);
-        this.generateDoor(world, boundingBox, rand, 15, 2, 5, EnumFacing.WEST, Blocks.OAK_DOOR);
+        // Place doors (not using #createVillageDoor because it forces them to face NORTH)
+        BlockDoor door = this.biomeDoor();
+        this.generateDoor(world, boundingBox, rand, 1, 2, 5, EnumFacing.EAST, door);
+        this.generateDoor(world, boundingBox, rand, 15, 2, 5, EnumFacing.WEST, door);
 
         // Fill with air
         this.fillWithAir(world, boundingBox, 0, 2, 0, 0, 9, 10);
