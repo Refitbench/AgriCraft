@@ -53,7 +53,11 @@ public class StructureGreenHouseIrrigated extends StructureGreenHouse {
                 return true;
             }
             this.boundingBox.offset(0, this.averageGroundLevel - this.boundingBox.maxY + ySize - 1, 0);
+            this.boundingBox.offset(0, -1, 0);
         }
+
+        // Fill with air
+        this.fillWithAir(world, boundingBox, 0, 0, 0, xSize - 1, ySize, zSize - 1);
 
         // Cobblestone base
         IBlockState cobblestone = this.getBiomeSpecificBlockState(Blocks.COBBLESTONE.getDefaultState());
@@ -229,35 +233,6 @@ public class StructureGreenHouseIrrigated extends StructureGreenHouse {
         BlockDoor door = this.biomeDoor();
         this.generateDoor(world, boundingBox, rand, 1, 2, 10, EnumFacing.EAST, door);
         this.generateDoor(world, boundingBox, rand, 15, 2, 10, EnumFacing.WEST, door);
-
-        // Fill with air
-        this.fillWithAir(world, boundingBox, 0, 2, 0, 0, 9, 15);
-        this.fillWithAir(world, boundingBox, 16, 2, 0, 16, 9, 15);
-        this.fillWithAir(world, boundingBox, 0, 2, 0, 16, 9, 0);
-        this.fillWithAir(world, boundingBox, 0, 2, 15, 16, 9, 15);
-        this.fillWithAir(world, boundingBox, 2, 2, 7, 14, 5, 13);
-        this.fillWithAir(world, boundingBox, 1, 7, 6, 14, 9, 14);
-        this.fillWithAir(world, boundingBox, 1, 3, 7, 2, 9, 5);
-        this.fillWithAir(world, boundingBox, 2, 2, 7, 2, 2, 5);
-        this.fillWithAir(world, boundingBox, 3, 2, 2, 3, 3, 3);
-        this.fillWithAir(world, boundingBox, 2, 2, 5, 9, 4, 5);
-        this.fillWithAir(world, boundingBox, 2, 5, 5, 4, 5, 5);
-        this.fillWithAir(world, boundingBox, 6, 5, 5, 9, 5, 5);
-        this.fillWithAir(world, boundingBox, 2, 6, 5, 9, 9, 5);
-        this.fillWithAir(world, boundingBox, 4, 3, 1, 5, 3, 1);
-        this.fillWithAir(world, boundingBox, 4, 2, 4, 5, 3, 4);
-        this.fillWithAir(world, boundingBox, 4, 2, 2, 5, 4, 3);
-        this.fillWithAir(world, boundingBox, 6, 2, 2, 6, 3, 3);
-        this.fillWithAir(world, boundingBox, 7, 2, 2, 9, 9, 4);
-        this.fillWithAir(world, boundingBox, 10, 2, 2, 13, 9, 2);
-        this.fillWithAir(world, boundingBox, 10, 6, 3, 13, 9, 5);
-        this.fillWithAir(world, boundingBox, 14, 2, 2, 14, 9, 5);
-        this.fillWithAir(world, boundingBox, 7, 3, 1, 15, 9, 1);
-        this.fillWithAir(world, boundingBox, 15, 3, 2, 15, 9, 5);
-        this.fillWithAir(world, boundingBox, 11, 3, 4, 12, 4, 5);
-        this.fillWithAir(world, boundingBox, 11, 2, 6, 12, 4, 6);
-        this.fillWithAir(world, boundingBox, 11, 2, 5, 12, 4, 5);
-        this.fillWithAir(world, boundingBox, 12, 2, 4, 12, 4, 4);
 
         // Place fences
         IBlockState fence = this.getBiomeSpecificBlockState(Blocks.OAK_FENCE.getDefaultState());

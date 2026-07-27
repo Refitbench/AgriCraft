@@ -63,7 +63,11 @@ public class StructureGreenHouse extends StructureVillagePieces.House1 {
                 return true;
             }
             this.boundingBox.offset(0, this.averageGroundLevel - this.boundingBox.maxY + ySize - 1, 0);
+            this.boundingBox.offset(0, -1, 0);
         }
+
+        // Fill with air
+        this.fillWithAir(world, boundingBox, 0, 0, 0, xSize - 1, ySize, zSize - 1);
 
         // Cobblestone base
         IBlockState cobblestone = this.getBiomeSpecificBlockState(Blocks.COBBLESTONE.getDefaultState());
@@ -175,14 +179,6 @@ public class StructureGreenHouse extends StructureVillagePieces.House1 {
         BlockDoor door = this.biomeDoor();
         this.generateDoor(world, boundingBox, rand, 1, 2, 5, EnumFacing.EAST, door);
         this.generateDoor(world, boundingBox, rand, 15, 2, 5, EnumFacing.WEST, door);
-
-        // Fill with air
-        this.fillWithAir(world, boundingBox, 0, 2, 0, 0, 9, 10);
-        this.fillWithAir(world, boundingBox, 16, 2, 0, 16, 9, 10);
-        this.fillWithAir(world, boundingBox, 0, 2, 0, 16, 9, 0);
-        this.fillWithAir(world, boundingBox, 0, 2, 10, 16, 9, 10);
-        this.fillWithAir(world, boundingBox, 2, 2, 2, 14, 5, 8);
-        this.fillWithAir(world, boundingBox, 1, 7, 1, 14, 9, 8);
 
         // Place torches
         this.placeTorch(world, EnumFacing.WEST, 0, 4, 1, boundingBox);
