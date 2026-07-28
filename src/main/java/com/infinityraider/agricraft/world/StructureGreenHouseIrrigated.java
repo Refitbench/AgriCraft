@@ -53,6 +53,8 @@ public class StructureGreenHouseIrrigated extends StructureGreenHouse {
                 return true;
             }
             this.boundingBox.offset(0, this.averageGroundLevel - this.boundingBox.maxY + ySize - 1, 0);
+
+            // Make the structure match the ground level instead of being one block higher due to the cobblestone base
             this.boundingBox.offset(0, -1, 0);
         }
 
