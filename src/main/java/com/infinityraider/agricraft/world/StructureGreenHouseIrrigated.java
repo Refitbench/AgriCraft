@@ -19,8 +19,6 @@ import net.minecraft.world.gen.structure.StructureVillagePieces;
 import java.util.List;
 import java.util.Random;
 
-import static net.minecraft.block.BlockLog.LOG_AXIS;
-
 public class StructureGreenHouseIrrigated extends StructureGreenHouse {
 
     // Structure dimensions
@@ -121,10 +119,10 @@ public class StructureGreenHouseIrrigated extends StructureGreenHouse {
         // Place standing logs
         IBlockState logYAxis = this.getBiomeSpecificBlockState(Blocks.LOG.getDefaultState());
         IBlockState logXAxis = this.getBiomeSpecificBlockState(Blocks.LOG.getDefaultState()
-                .withProperty(LOG_AXIS, BlockLog.EnumAxis.X)
+                .withProperty(BlockLog.LOG_AXIS, BlockLog.EnumAxis.X)
         );
         IBlockState logZAxis = this.getBiomeSpecificBlockState(Blocks.LOG.getDefaultState()
-                .withProperty(LOG_AXIS, BlockLog.EnumAxis.Z)
+                .withProperty(BlockLog.LOG_AXIS, BlockLog.EnumAxis.Z)
         );
 
         this.fillWithBlocks(world, boundingBox, 10, 2, 3, 10, 5, 3, logYAxis, logYAxis, false);

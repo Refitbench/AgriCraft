@@ -25,8 +25,6 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-import static net.minecraft.block.BlockLog.LOG_AXIS;
-
 public class StructureGreenHouse extends StructureVillagePieces.House1 {
 
     // Structure dimensions
@@ -122,10 +120,10 @@ public class StructureGreenHouse extends StructureVillagePieces.House1 {
         // Place standing logs
         IBlockState logYAxis = this.getBiomeSpecificBlockState(Blocks.LOG.getDefaultState());
         IBlockState logXAxis = this.getBiomeSpecificBlockState(Blocks.LOG.getDefaultState()
-                .withProperty(LOG_AXIS, BlockLog.EnumAxis.X)
+                .withProperty(BlockLog.LOG_AXIS, BlockLog.EnumAxis.X)
         );
         IBlockState logZAxis = this.getBiomeSpecificBlockState(Blocks.LOG.getDefaultState()
-                .withProperty(LOG_AXIS, BlockLog.EnumAxis.Z)
+                .withProperty(BlockLog.LOG_AXIS, BlockLog.EnumAxis.Z)
         );
 
         this.fillWithBlocks(world, boundingBox, 1, 2, 1, 1, 6, 1, logYAxis, logYAxis, false);
