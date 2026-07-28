@@ -74,7 +74,7 @@ public class StructureGreenHouse extends StructureVillagePieces.House1 {
         this.fillWithBlocks(world, boundingBox, 0, 0, 0, xSize - 1, 0, zSize - 1, cobblestone, cobblestone, false);
 
         // Ring of gravel
-        IBlockState gravel = Blocks.GRAVEL.getDefaultState();
+        IBlockState gravel = this.getBiomeSpecificBlockState(Blocks.GRAVEL.getDefaultState());
         this.fillWithBlocks(world, boundingBox, 0, 1, 0, xSize - 1, 1, 0, gravel, gravel, false);
         this.fillWithBlocks(world, boundingBox, 0, 1, 0, 0, 1, zSize - 1, gravel, gravel, false);
         this.fillWithBlocks(world, boundingBox, 0, 1, zSize - 1, xSize - 1, 1, zSize - 1, gravel, gravel, false);
