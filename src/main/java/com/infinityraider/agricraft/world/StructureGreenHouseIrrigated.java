@@ -117,31 +117,30 @@ public class StructureGreenHouseIrrigated extends StructureGreenHouse {
         this.fillWithBlocks(world, boundingBox, 9, 1, 8, 13, 1, 12, farmland, farmland, false);
 
         // Place standing logs
-        IBlockState log = this.getBiomeSpecificBlockState(Blocks.LOG.getDefaultState());
-        this.fillWithBlocks(world, boundingBox, 10, 2, 3, 10, 5, 3, log, log, false);
-        this.fillWithBlocks(world, boundingBox, 13, 2, 3, 13, 5, 3, log, log, false);
-        this.fillWithBlocks(world, boundingBox, 1, 2, 6, 1, 6, 6, log, log, false);
-        this.fillWithBlocks(world, boundingBox, 3, 2, 6, 3, 5, 6, log, log, false);
-        this.fillWithBlocks(world, boundingBox, 6, 2, 6, 6, 5, 6, log, log, false);
-        this.fillWithBlocks(world, boundingBox, 8, 2, 6, 8, 6, 6, log, log, false);
-        this.fillWithBlocks(world, boundingBox, 10, 2, 6, 10, 5, 6, log, log, false);
-        this.fillWithBlocks(world, boundingBox, 13, 2, 6, 13, 5, 6, log, log, false);
-        this.fillWithBlocks(world, boundingBox, 15, 2, 6, 15, 6, 6, log, log, false);
-        this.fillWithBlocks(world, boundingBox, 1, 2, 9, 1, 5, 9, log, log, false);
-        this.fillWithBlocks(world, boundingBox, 15, 2, 9, 15, 5, 9, log, log, false);
-        this.fillWithBlocks(world, boundingBox, 1, 2, 11, 1, 5, 11, log, log, false);
-        this.fillWithBlocks(world, boundingBox, 15, 2, 11, 15, 5, 11, log, log, false);
-        this.fillWithBlocks(world, boundingBox, 1, 2, 14, 1, 6, 14, log, log, false);
-        this.fillWithBlocks(world, boundingBox, 8, 2, 14, 8, 6, 14, log, log, false);
-        this.fillWithBlocks(world, boundingBox, 15, 2, 14, 15, 6, 14, log, log, false);
+        IBlockState logYAxis = this.getBiomeSpecificBlockState(Blocks.LOG.getDefaultState());
+        IBlockState logXAxis = this.getBiomeSpecificBlockState(Blocks.LOG.getDefaultState()
+                .withProperty(LOG_AXIS, BlockLog.EnumAxis.X)
+        );
+        IBlockState logZAxis = this.getBiomeSpecificBlockState(Blocks.LOG.getDefaultState()
+                .withProperty(LOG_AXIS, BlockLog.EnumAxis.Z)
+        );
 
-        IBlockState logXAxis = log;
-        IBlockState logZAxis = log;
-
-        if(log.getBlock() instanceof BlockLog) {
-            logXAxis = logXAxis.withProperty(LOG_AXIS, BlockLog.EnumAxis.X);
-            logZAxis = logZAxis.withProperty(LOG_AXIS, BlockLog.EnumAxis.Z);
-        }
+        this.fillWithBlocks(world, boundingBox, 10, 2, 3, 10, 5, 3, logYAxis, logYAxis, false);
+        this.fillWithBlocks(world, boundingBox, 13, 2, 3, 13, 5, 3, logYAxis, logYAxis, false);
+        this.fillWithBlocks(world, boundingBox, 1, 2, 6, 1, 6, 6, logYAxis, logYAxis, false);
+        this.fillWithBlocks(world, boundingBox, 3, 2, 6, 3, 5, 6, logYAxis, logYAxis, false);
+        this.fillWithBlocks(world, boundingBox, 6, 2, 6, 6, 5, 6, logYAxis, logYAxis, false);
+        this.fillWithBlocks(world, boundingBox, 8, 2, 6, 8, 6, 6, logYAxis, logYAxis, false);
+        this.fillWithBlocks(world, boundingBox, 10, 2, 6, 10, 5, 6, logYAxis, logYAxis, false);
+        this.fillWithBlocks(world, boundingBox, 13, 2, 6, 13, 5, 6, logYAxis, logYAxis, false);
+        this.fillWithBlocks(world, boundingBox, 15, 2, 6, 15, 6, 6, logYAxis, logYAxis, false);
+        this.fillWithBlocks(world, boundingBox, 1, 2, 9, 1, 5, 9, logYAxis, logYAxis, false);
+        this.fillWithBlocks(world, boundingBox, 15, 2, 9, 15, 5, 9, logYAxis, logYAxis, false);
+        this.fillWithBlocks(world, boundingBox, 1, 2, 11, 1, 5, 11, logYAxis, logYAxis, false);
+        this.fillWithBlocks(world, boundingBox, 15, 2, 11, 15, 5, 11, logYAxis, logYAxis, false);
+        this.fillWithBlocks(world, boundingBox, 1, 2, 14, 1, 6, 14, logYAxis, logYAxis, false);
+        this.fillWithBlocks(world, boundingBox, 8, 2, 14, 8, 6, 14, logYAxis, logYAxis, false);
+        this.fillWithBlocks(world, boundingBox, 15, 2, 14, 15, 6, 14, logYAxis, logYAxis, false);
         
         // Logs along x-axis
         this.fillWithBlocks(world, boundingBox, 11, 5, 3, 12, 5, 3, logXAxis, logXAxis, false);

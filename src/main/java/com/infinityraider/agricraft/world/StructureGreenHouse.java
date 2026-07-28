@@ -118,25 +118,24 @@ public class StructureGreenHouse extends StructureVillagePieces.House1 {
         this.fillWithBlocks(world, boundingBox, 9, 1, 3, 13, 1, 7, farmland, farmland, false);
 
         // Place standing logs
-        IBlockState log = this.getBiomeSpecificBlockState(Blocks.LOG.getDefaultState());
-        this.fillWithBlocks(world, boundingBox, 1, 2, 1, 1, 6, 1, log, log, false);
-        this.fillWithBlocks(world, boundingBox, 8, 2, 1, 8, 6, 1, log, log, false);
-        this.fillWithBlocks(world, boundingBox, 15, 2, 1, 15, 6, 1, log, log, false);
-        this.fillWithBlocks(world, boundingBox, 1, 2, 4, 1, 5, 4, log, log, false);
-        this.fillWithBlocks(world, boundingBox, 15, 2, 4, 15, 5, 4, log, log, false);
-        this.fillWithBlocks(world, boundingBox, 1, 2, 6, 1, 5, 6, log, log, false);
-        this.fillWithBlocks(world, boundingBox, 15, 2, 6, 15, 5, 6, log, log, false);
-        this.fillWithBlocks(world, boundingBox, 1, 2, 9, 1, 6, 9, log, log, false);
-        this.fillWithBlocks(world, boundingBox, 8, 2, 9, 8, 6, 9, log, log, false);
-        this.fillWithBlocks(world, boundingBox, 15, 2, 9, 15, 6, 9, log, log, false);
+        IBlockState logYAxis = this.getBiomeSpecificBlockState(Blocks.LOG.getDefaultState());
+        IBlockState logXAxis = this.getBiomeSpecificBlockState(Blocks.LOG.getDefaultState()
+                .withProperty(LOG_AXIS, BlockLog.EnumAxis.X)
+        );
+        IBlockState logZAxis = this.getBiomeSpecificBlockState(Blocks.LOG.getDefaultState()
+                .withProperty(LOG_AXIS, BlockLog.EnumAxis.Z)
+        );
 
-        IBlockState logXAxis = log;
-        IBlockState logZAxis = log;
-
-        if(log.getBlock() instanceof BlockLog) {
-            logXAxis = logXAxis.withProperty(LOG_AXIS, BlockLog.EnumAxis.X);
-            logZAxis = logZAxis.withProperty(LOG_AXIS, BlockLog.EnumAxis.Z);
-        }
+        this.fillWithBlocks(world, boundingBox, 1, 2, 1, 1, 6, 1, logYAxis, logYAxis, false);
+        this.fillWithBlocks(world, boundingBox, 8, 2, 1, 8, 6, 1, logYAxis, logYAxis, false);
+        this.fillWithBlocks(world, boundingBox, 15, 2, 1, 15, 6, 1, logYAxis, logYAxis, false);
+        this.fillWithBlocks(world, boundingBox, 1, 2, 4, 1, 5, 4, logYAxis, logYAxis, false);
+        this.fillWithBlocks(world, boundingBox, 15, 2, 4, 15, 5, 4, logYAxis, logYAxis, false);
+        this.fillWithBlocks(world, boundingBox, 1, 2, 6, 1, 5, 6, logYAxis, logYAxis, false);
+        this.fillWithBlocks(world, boundingBox, 15, 2, 6, 15, 5, 6, logYAxis, logYAxis, false);
+        this.fillWithBlocks(world, boundingBox, 1, 2, 9, 1, 6, 9, logYAxis, logYAxis, false);
+        this.fillWithBlocks(world, boundingBox, 8, 2, 9, 8, 6, 9, logYAxis, logYAxis, false);
+        this.fillWithBlocks(world, boundingBox, 15, 2, 9, 15, 6, 9, logYAxis, logYAxis, false);
 
         // Logs along x-axis
         this.fillWithBlocks(world, boundingBox, 2, 6, 1, 7, 6, 1, logXAxis, logXAxis, false);
