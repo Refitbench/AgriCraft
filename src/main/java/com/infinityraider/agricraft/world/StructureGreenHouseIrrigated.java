@@ -28,6 +28,8 @@ public class StructureGreenHouseIrrigated extends StructureGreenHouse {
 
     private int averageGroundLevel = -1;
 
+    public StructureGreenHouseIrrigated() {}
+
     public StructureGreenHouseIrrigated(StructureVillagePieces.Start villagePiece, int type, Random rand, StructureBoundingBox structureBoundingBox, EnumFacing facing) {
         super(villagePiece, type, rand, structureBoundingBox, facing);
     }
