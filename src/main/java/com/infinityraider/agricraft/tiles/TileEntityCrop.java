@@ -42,12 +42,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class TileEntityCrop extends TileEntityBase implements IAgriCrop, IDebuggable, IAgriDisplayable {
 
-    private static final EnumFacing[] SPREAD_DIRECTIONS = {
-            EnumFacing.NORTH,
-            EnumFacing.EAST,
-            EnumFacing.SOUTH,
-            EnumFacing.WEST
-    };
+    private static final EnumFacing[] SPREAD_DIRECTIONS = EnumFacing.HORIZONTALS;
 
     private AgriSeed seed;
     private int growthStage;
@@ -439,9 +434,8 @@ public class TileEntityCrop extends TileEntityBase implements IAgriCrop, IDebugg
                     crop.setSeed(source);
                     return true;
                 }
-            } else if (plant.isAggressive()
-                    && plant.getGrowthRequirement().hasValidSoil(world, crop.getCropPos())
-                    && other.getStat().getStrength() < source.getStat().getStrength() * random.nextDouble()) {
+            } else if (canOvertake(source, other, random)
+                    && plant.getGrowthRequirement().hasValidSoil(world, crop.getCropPos())) {
                 crop.setCrossCrop(false);
                 crop.setSeed(source);
                 return true;
