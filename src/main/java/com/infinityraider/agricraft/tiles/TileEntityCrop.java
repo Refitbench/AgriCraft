@@ -20,7 +20,6 @@ import com.infinityraider.agricraft.reference.AgriNBT;
 import com.infinityraider.agricraft.reference.Constants;
 import com.infinityraider.infinitylib.block.tile.TileEntityBase;
 import com.infinityraider.infinitylib.utility.MessageUtil;
-import com.infinityraider.infinitylib.utility.WorldHelper;
 import com.infinityraider.infinitylib.utility.debug.IDebuggable;
 import java.util.Optional;
 import java.util.Random;
@@ -33,6 +32,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -40,6 +41,8 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class TileEntityCrop extends TileEntityBase implements IAgriCrop, IDebuggable, IAgriDisplayable {
+
+    private static final EnumFacing[] SPREAD_DIRECTIONS = EnumFacing.HORIZONTALS;
 
     private AgriSeed seed;
     private int growthStage;
@@ -402,25 +405,40 @@ public class TileEntityCrop extends TileEntityBase implements IAgriCrop, IDebugg
             return false;
         }
 
-        final IAgriPlant plant = this.seed.getPlant();
+        final AgriSeed source = this.seed;
+        final IAgriPlant plant = source.getPlant();
+        final double spreadChance = plant.getSpreadChance();
+        final World world = this.getWorld();
+        final Random random = this.getRandom();
 
-        // Try to spread in each direction.
-        for (IAgriCrop crop : WorldHelper.getTileNeighbors(this.getWorld(), pos, IAgriCrop.class)) {
-            // Note: Checking the probability is faster. Also check that this plant can be planted there.
-            if (plant.getSpreadChance() > this.getRandom().nextDouble()
-                    && plant.getGrowthRequirement().hasValidSoil(this.getWorld(), crop.getCropPos())) {
-                final AgriSeed other = crop.getSeed();
-                if (other == null) {
-                    if (!crop.isCrossCrop()) {
-                        crop.setSeed(this.seed);
-                        return true;
-                    }
-                } else if (canOvertake(this.seed, other, this.getRandom())) {
-                    crop.setCrossCrop(false);
-                    crop.setSeed(this.seed);
+        // Roll random first: most spread attempts fail, so they do not need a tile lookup.
+        // Tile entity lookups and soil matching are expensive
+        for (EnumFacing direction : SPREAD_DIRECTIONS) {
+            if (spreadChance <= random.nextDouble()) {
+                continue;
+            }
+
+            final TileEntity tile = world.getTileEntity(pos.offset(direction));
+            if (!(tile instanceof IAgriCrop)) {
+                continue;
+            }
+
+            final IAgriCrop crop = (IAgriCrop) tile;
+            final AgriSeed other = crop.getSeed();
+            if (other == null) {
+                // Cross-crops cannot receive spread seeds, so avoid their soil check too.
+                if (crop.isCrossCrop()) {
+                    continue;
+                }
+                if (plant.getGrowthRequirement().hasValidSoil(world, crop.getCropPos())) {
+                    crop.setSeed(source);
                     return true;
                 }
-
+            } else if (canOvertake(source, other, random)
+                    && plant.getGrowthRequirement().hasValidSoil(world, crop.getCropPos())) {
+                crop.setCrossCrop(false);
+                crop.setSeed(source);
+                return true;
             }
         }
 
